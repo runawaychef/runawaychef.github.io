@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Bake — учёт заказов и склада для пекарни</title>
+<meta name="description" content="Simple Bake — приложение для домашних пекарей и небольших пекарен. Заказы, клиенты, рецептура и склад в одном месте.">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f4f1ea;
+    --cream-2:#eee9dd;
+    --sage:#7c9473;
+    --sage-dark:#4f6349;
+    --sage-light:#e3e8df;
+    --terracotta:#c0685c;
+    --honey:#d9a441;
+    --ink:#33342c;
+    --paper:#fffdf8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:'Karla', -apple-system, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.wordmark{ font-family:'Fraunces', serif; }
+  a{color:inherit;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 24px; }
+  html [data-lang]{ display:none; }
+  html[data-current="ru"] [data-lang="ru"]{ display:block; }
+  html[data-current="ru"] span[data-lang="ru"]{ display:inline; }
+  html[data-current="en"] [data-lang="en"]{ display:block; }
+  html[data-current="en"] span[data-lang="en"]{ display:inline; }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(244,241,234,.88); backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(79,99,73,.12);
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; max-width:1120px; margin:0 auto;
+  }
+  .wordmark{ font-size:22px; font-weight:600; color:var(--sage-dark); letter-spacing:-.01em; }
+  .wordmark small{ display:block; font-family:'Karla',sans-serif; font-weight:500; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:#9a9483; margin-top:1px;}
+  .lang-toggle{
+    display:flex; background:var(--paper); border:1px solid rgba(79,99,73,.18);
+    border-radius:999px; padding:3px; gap:2px;
+  }
+  .lang-toggle button{
+    border:none; background:none; font:600 12px/1 'Karla',sans-serif; letter-spacing:.03em;
+    padding:7px 13px; border-radius:999px; color:#8a8676; cursor:pointer; transition:.15s;
+  }
+  .lang-toggle button.active{ background:var(--sage); color:#fff; }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:76px 0 40px; position:relative; overflow:hidden; }
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font:600 12px/1 'Karla',sans-serif; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--sage-dark); background:var(--sage-light); padding:7px 14px 7px 10px; border-radius:999px;
+    margin-bottom:22px;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--honey); }
+  .hero h1{
+    font-size:clamp(34px,5vw,54px); line-height:1.05; font-weight:600; color:var(--sage-dark);
+    margin:0 0 22px; letter-spacing:-.015em;
+  }
+  .hero h1 em{ font-style:italic; font-weight:500; color:var(--terracotta); }
+  .lead-group{ margin:0 0 34px; max-width:46ch; }
+  .hero p.lead{ font-size:18px; line-height:1.6; color:#5b5b4f; margin:0 0 14px; }
+  .hero p.lead:last-child{ margin-bottom:0; }
+  .cta-row{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; }
+  .btn{
+    display:inline-flex; align-items:center; gap:9px; font:600 15px/1 'Karla',sans-serif;
+    padding:15px 26px; border-radius:13px; text-decoration:none; cursor:pointer; border:1px solid transparent;
+    transition:.15s;
+  }
+  .btn-primary{ background:var(--sage-dark); color:#fff; }
+  .btn-primary:hover{ background:#3e5039; }
+  .btn-ghost{ background:transparent; border-color:rgba(79,99,73,.28); color:var(--sage-dark); }
+  .btn-ghost:hover{ border-color:var(--sage-dark); }
+  .btn-primary svg{ width:16px; height:16px; }
+
+  /* signature wheat illustration */
+  .stalk-scene{ position:relative; aspect-ratio:1/1.05; }
+  .stalk-scene svg{ width:100%; height:100%; }
+
+  /* ---------- ticket strip (order cards motif) ---------- */
+  .tickets{ padding:6px 0 64px; }
+  .ticket-row{ display:flex; gap:16px; overflow-x:auto; padding:4px 2px 14px; scrollbar-width:none; }
+  .ticket-row::-webkit-scrollbar{ display:none; }
+  .ticket{
+    flex:0 0 auto; width:220px; background:var(--paper); border-radius:16px;
+    padding:18px 18px 16px; border:1px solid rgba(79,99,73,.10);
+    box-shadow:0 2px 10px rgba(60,58,40,.05);
+    position:relative;
+  }
+  .ticket:before{
+    content:''; position:absolute; left:0; top:14px; bottom:14px; width:4px; border-radius:3px;
+  }
+  .ticket.t1:before{ background:var(--terracotta); }
+  .ticket.t2:before{ background:var(--honey); }
+  .ticket.t3:before{ background:var(--sage); }
+  .ticket .tk-top{ display:flex; justify-content:space-between; font-size:11px; color:#a29c8c; margin-bottom:10px; letter-spacing:.03em; }
+  .ticket .tk-name{ font:600 15px 'Karla',sans-serif; margin-bottom:6px; }
+  .ticket .tk-line{ display:flex; justify-content:space-between; font-size:12.5px; color:#6b675d; padding:3px 0; }
+  .ticket .tk-total{ margin-top:10px; padding-top:10px; border-top:1px dashed rgba(79,99,73,.2); display:flex; justify-content:space-between; font:700 14px 'Karla',sans-serif; color:var(--sage-dark); }
+
+  /* ---------- features ---------- */
+  .section{ padding:70px 0; }
+  .section-head{ max-width:640px; margin:0 0 44px; }
+  .kicker{ font:600 12px/1 'Karla',sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--terracotta); margin-bottom:12px; display:block;}
+  .section-head h2{ font-size:clamp(26px,3.4vw,36px); color:var(--sage-dark); margin:0 0 14px; font-weight:600; letter-spacing:-.01em; }
+  .section-head p{ font-size:16.5px; line-height:1.65; color:#5b5b4f; margin:0; }
+
+  .feature-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:rgba(79,99,73,.14); border-radius:20px; overflow:hidden; }
+  .feature{ background:var(--cream); padding:32px 28px; }
+  .feature .ic{
+    width:42px; height:42px; border-radius:12px; background:var(--sage-light); color:var(--sage-dark);
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+  }
+  .feature .ic svg{ width:21px; height:21px; }
+  .feature h3{ font:600 16.5px 'Karla',sans-serif; margin:0 0 8px; color:var(--ink); }
+  .feature p{ font-size:14px; line-height:1.55; color:#6b675d; margin:0; }
+
+  /* ---------- showcase (screenshot) ---------- */
+  .showcase{
+    display:grid; grid-template-columns:1fr .82fr; gap:48px; align-items:center;
+    background:var(--sage-light); border-radius:24px; padding:44px 44px 0; margin-bottom:36px; overflow:hidden;
+  }
+  .showcase-text .kicker{ color:var(--sage-dark); margin-bottom:14px; }
+  .showcase-text h3{ font-size:clamp(22px,2.6vw,28px); color:var(--sage-dark); margin:0 0 14px; font-weight:600; letter-spacing:-.01em; }
+  .showcase-text p{ font-size:15.5px; line-height:1.6; color:#4c5a45; margin:0; max-width:36ch; }
+  .showcase-phone{ display:flex; justify-content:center; align-self:flex-end; }
+  .phone-frame{
+    width:78%; max-width:260px; background:#111; border-radius:34px 34px 0 0; padding:10px 10px 0;
+    box-shadow:0 30px 60px -20px rgba(51,52,44,.35); overflow:hidden;
+  }
+  .phone-frame img{ width:100%; display:block; border-radius:22px 22px 0 0; }
+
+  /* ---------- how it works ---------- */
+  .how{ background:var(--sage-dark); color:var(--cream); border-radius:28px; padding:56px 44px; }
+  .how .section-head h2{ color:#fff; }
+  .how .section-head p{ color:rgba(244,241,234,.78); }
+  .how .kicker{ color:var(--honey); }
+  .how-steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:36px; margin-top:8px; }
+  .how-step .num{ font-family:'Fraunces',serif; font-style:italic; font-size:15px; color:var(--honey); margin-bottom:10px; }
+  .how-step h3{ font:600 17px 'Karla',sans-serif; margin:0 0 8px; color:#fff; }
+  .how-step p{ font-size:14px; line-height:1.6; color:rgba(244,241,234,.75); margin:0; }
+
+  /* ---------- CTA band ---------- */
+  .cta-band{
+    background:var(--honey); border-radius:26px; padding:52px 44px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .cta-band h2{ font-size:clamp(26px,3.6vw,38px); color:#3c2f14; margin:0 0 14px; font-weight:600; }
+  .cta-band p{ font-size:16px; color:#5a4a24; max-width:52ch; margin:0 auto 30px; line-height:1.6; }
+  .cta-band .btn-primary{ background:var(--sage-dark); }
+
+  footer{ padding:48px 0 40px; border-top:1px solid rgba(79,99,73,.14); margin-top:20px; }
+  .footer-inner{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px; align-items:flex-start; }
+  .footer-brand .wordmark{ font-size:18px; }
+  .footer-brand p{ font-size:13px; color:#8a8676; margin:8px 0 0; max-width:32ch; line-height:1.5; }
+  .footer-links{ display:flex; gap:40px; flex-wrap:wrap; }
+  .footer-links div{ display:flex; flex-direction:column; gap:9px; }
+  .footer-links a{ font-size:13.5px; color:#5b5b4f; text-decoration:none; }
+  .footer-links a:hover{ color:var(--sage-dark); }
+  .footer-links .lbl{ font:600 11px/1 'Karla',sans-serif; text-transform:uppercase; letter-spacing:.07em; color:#a29c8c; margin-bottom:2px; }
+  .copyright{ margin-top:36px; font-size:12px; color:#a29c8c; }
+
+  @media (max-width:860px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .stalk-scene{ max-width:280px; margin:0 auto; order:-1; }
+    .showcase{ grid-template-columns:1fr; padding:36px 28px 0; text-align:left; }
+    .showcase-phone{ margin-top:8px; }
+    .phone-frame{ max-width:220px; }
+    .feature-grid{ grid-template-columns:1fr; }
+    .how{ padding:40px 24px; }
+    .how-steps{ grid-template-columns:1fr; gap:26px; }
+    .cta-band{ padding:40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="wordmark">Simple Bake<small>by Runaway Chef Lab</small></div>
+    <div class="lang-toggle">
+      <button type="button" id="btnRu" onclick="setSiteLang('ru')">RU</button>
+      <button type="button" id="btnEn" onclick="setSiteLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <h1 data-lang="ru">Меньше бумажной<br>работы. <em>Больше</em><br>выпечки.</h1>
+        <h1 data-lang="en">Less paperwork.<br><em>More</em> baking.</h1>
+
+        <div class="lead-group" data-lang="ru">
+          <p class="lead">Simple Bake создан для домашних кондитеров и небольших пекарен, которым нужен порядок без сложных бухгалтерских программ.</p>
+          <p class="lead">Управляйте заказами, клиентами, рецептами и складом в одном простом приложении. Аналитика поможет лучше понимать свой бизнес и принимать решения увереннее.</p>
+        </div>
+        <div class="lead-group" data-lang="en">
+          <p class="lead">Simple Bake is built for home bakers, confectioners, and small bakeries who want things organized — without complicated accounting software.</p>
+          <p class="lead">Manage orders, customers, recipes and inventory in one simple app. Analytics helps you understand your business better and make decisions with more confidence.</p>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#" id="playStoreBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"/></svg>
+            <span data-lang="ru">Скоро в Google Play</span>
+            <span data-lang="en">Coming soon to Google Play</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- signature illustration: stylised wheat stalk, echoes the upcoming logo direction -->
+      <div class="stalk-scene" aria-hidden="true">
+        <svg viewBox="0 0 320 340" fill="none">
+          <circle cx="160" cy="170" r="150" fill="#e3e8df"/>
+          <g stroke="#4f6349" stroke-width="3.4" stroke-linecap="round">
+            <path d="M160 60 L160 300" fill="none"/>
+          </g>
+          <g fill="#d9a441" stroke="#4f6349" stroke-width="2.6">
+            <ellipse cx="160" cy="88"  rx="15" ry="21"/>
+            <ellipse cx="133" cy="110" rx="14" ry="19" transform="rotate(-28 133 110)"/>
+            <ellipse cx="187" cy="110" rx="14" ry="19" transform="rotate(28 187 110)"/>
+            <ellipse cx="160" cy="128" rx="14.5" ry="20"/>
+            <ellipse cx="129" cy="150" rx="14" ry="19" transform="rotate(-30 129 150)"/>
+            <ellipse cx="191" cy="150" rx="14" ry="19" transform="rotate(30 191 150)"/>
+            <ellipse cx="160" cy="168" rx="14.5" ry="20"/>
+            <ellipse cx="131" cy="190" rx="13.5" ry="18" transform="rotate(-28 131 190)"/>
+            <ellipse cx="189" cy="190" rx="13.5" ry="18" transform="rotate(28 189 190)"/>
+            <ellipse cx="160" cy="206" rx="13.5" ry="18"/>
+          </g>
+          <g stroke="#7c9473" stroke-width="3" stroke-linecap="round" fill="none">
+            <path d="M160 240 C 130 250, 118 275, 122 300"/>
+            <path d="M160 250 C 190 260, 202 282, 198 306"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURES ================= -->
+  <section class="section" id="features">
+    <div class="section-head">
+      <span class="kicker" data-lang="ru">Возможности</span>
+      <span class="kicker" data-lang="en">Features</span>
+      <h2 data-lang="ru">Всё, что нужно для вашего бизнеса — в одном приложении</h2>
+      <h2 data-lang="en">Everything your business needs — in one app</h2>
+      <p data-lang="ru">Без сложной бухгалтерии, бесконечных таблиц и блокнотов. Только инструменты, которыми вы действительно пользуетесь каждый день.</p>
+      <p data-lang="en">No complicated accounting, endless spreadsheets, or notebooks. Just the tools you actually use every day.</p>
+    </div>
+
+    <div class="showcase">
+      <div class="showcase-text">
+        <span class="kicker" data-lang="ru">Учёт заказов</span>
+        <span class="kicker" data-lang="en">Order management</span>
+        <h3 data-lang="ru">Все ваши заказы — в одном месте</h3>
+        <h3 data-lang="en">All your orders in one place</h3>
+        <p data-lang="ru">Следите за статусами, сроками, оплатой и историей без лишних записей и поиска в переписках.</p>
+        <p data-lang="en">Track statuses, due dates, payments and history — no more notes or digging through chats.</p>
+      </div>
+      <div class="showcase-phone">
+        <div class="phone-frame">
+          <img src="screenshot-orders.jpg" alt="Simple Bake — orders screen" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m-8 5h10a2 2 0 002-2V7.828a2 2 0 00-.586-1.414l-3.828-3.828A2 2 0 0012.172 2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg></div>
+        <h3 data-lang="ru">Учёт заказов</h3>
+        <h3 data-lang="en">Order management</h3>
+        <p data-lang="ru">Все ваши заказы — в одном месте. Следите за статусами, сроками, оплатой и историей без лишних записей и поиска в переписках.</p>
+        <p data-lang="en">All your orders in one place. Track statuses, due dates, payments and history — no more notes or digging through chats.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg></div>
+        <h3 data-lang="ru">База клиентов</h3>
+        <h3 data-lang="en">Customer database</h3>
+        <p data-lang="ru">Все клиенты в одном месте. История заказов и покупок помогает видеть постоянных гостей и лучше понимать их предпочтения.</p>
+        <p data-lang="en">All your customers in one place. Order and purchase history helps you spot regulars and understand what they like.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg></div>
+        <h3 data-lang="ru">Рецептура изделий</h3>
+        <h3 data-lang="en">Recipe management</h3>
+        <p data-lang="ru">Создавайте рецепты и сразу смотрите себестоимость каждого изделия по текущим ценам ингредиентов.</p>
+        <p data-lang="en">Create recipes and instantly see the cost of each item based on current ingredient prices.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/></svg></div>
+        <h3 data-lang="ru">Складской учёт</h3>
+        <h3 data-lang="en">Inventory tracking</h3>
+        <p data-lang="ru">Знайте, что есть на складе и что пора заказать, чтобы нужные продукты всегда были под рукой.</p>
+        <p data-lang="en">Know what's in stock and what needs restocking, so you always have what you need on hand.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg></div>
+        <h3 data-lang="ru">Статистика</h3>
+        <h3 data-lang="en">Business statistics</h3>
+        <p data-lang="ru">Смотрите, сколько вы заработали, какие изделия продаются лучше и что приносит больше прибыли.</p>
+        <p data-lang="en">See how much you've earned, which items sell best, and what brings in the most profit.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg></div>
+        <h3 data-lang="ru">Календарь заказов</h3>
+        <h3 data-lang="en">Calendar view</h3>
+        <p data-lang="ru">Планируйте работу удобным способом по датам.</p>
+        <p data-lang="en">Plan your work the way that suits you, by date.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="section">
+    <div class="how">
+      <div class="section-head">
+        <span class="kicker" data-lang="ru">Как это работает</span>
+        <span class="kicker" data-lang="en">How it works</span>
+        <h2 data-lang="ru">Начать можно за один вечер</h2>
+        <h2 data-lang="en">Get started in one evening</h2>
+        <p data-lang="ru">Никакой сложной настройки — заносите то, что уже знаете о своей пекарне, и приложение начинает считать само.</p>
+        <p data-lang="en">No complicated setup — enter what you already know about your bakery, and the app starts calculating for you.</p>
+      </div>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="num">01</div>
+          <h3 data-lang="ru">Войдите через Google</h3>
+          <h3 data-lang="en">Sign in with Google</h3>
+          <p data-lang="ru">Без паролей и лишних форм — один вход, и вы уже внутри.</p>
+          <p data-lang="en">No passwords, no extra forms — one sign-in and you're in.</p>
+        </div>
+        <div class="how-step">
+          <div class="num">02</div>
+          <h3 data-lang="ru">Добавьте изделия и ингредиенты</h3>
+          <h3 data-lang="en">Add your items and ingredients</h3>
+          <p data-lang="ru">Впишите рецепты — себестоимость и остатки приложение посчитает само.</p>
+          <p data-lang="en">Enter your recipes — the app works out cost and stock levels on its own.</p>
+        </div>
+        <div class="how-step">
+          <div class="num">03</div>
+          <h3 data-lang="ru">Принимайте заказы</h3>
+          <h3 data-lang="en">Start taking orders</h3>
+          <p data-lang="ru">Дальше — просто пекарня в привычном ритме, только без бумаги и путаницы.</p>
+          <p data-lang="en">From here it's just your bakery, business as usual — minus the paper and the mess.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="section">
+    <div class="cta-band">
+      <h2 data-lang="ru">Держите дела в порядке.<br>Пеките больше.</h2>
+      <h2 data-lang="en">Stay organized.<br>Bake more.</h2>
+      <p data-lang="ru">Simple Bake скоро появится в Google Play. Оставьте почту, и мы напишем в день запуска.</p>
+      <p data-lang="en">Simple Bake is launching soon on Google Play. Leave your email and we'll let you know on launch day.</p>
+      <a class="btn btn-primary" href="mailto:simplebake.support@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M3 7l9 6 9-6M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z"/></svg>
+        <span data-lang="ru">Написать нам</span>
+        <span data-lang="en">Get in touch</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <div class="wordmark">Simple Bake</div>
+      <p data-lang="ru">Простой учёт для домашних пекарей и небольших пекарен. Разработано Runaway Chef Lab.</p>
+      <p data-lang="en">Simple bookkeeping for home bakers and small bakeries. Made by Runaway Chef Lab.</p>
+    </div>
+    <div class="footer-links">
+      <div>
+        <span class="lbl" data-lang="ru">Продукт</span>
+        <span class="lbl" data-lang="en">Product</span>
+        <a href="#features"><span data-lang="ru">Возможности</span><span data-lang="en">Features</span></a>
+        <a href="mailto:simplebake.support@gmail.com"><span data-lang="ru">Поддержка</span><span data-lang="en">Support</span></a>
+      </div>
+      <div>
+        <span class="lbl" data-lang="ru">Документы</span>
+        <span class="lbl" data-lang="en">Legal</span>
+        <a href="/privacy.html"><span data-lang="ru">Конфиденциальность</span><span data-lang="en">Privacy Policy</span></a>
+        <a href="/terms.html"><span data-lang="ru">Условия использования</span><span data-lang="en">Terms of Use</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap copyright">© 2026 Runaway Chef Lab · Simple Bake</div>
+</footer>
+
+<script>
+  function setSiteLang(lang){
+    document.documentElement.setAttribute('data-current', lang);
+    document.documentElement.setAttribute('lang', lang);
+    document.getElementById('btnRu').classList.toggle('active', lang === 'ru');
+    document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+    localStorage.setItem('siteLang', lang);
+  }
+  var savedLang = localStorage.getItem('siteLang');
+  var initialLang = savedLang || ((navigator.language || '').toLowerCase().startsWith('ru') ? 'ru' : 'en');
+  setSiteLang(initialLang);
+</script>
+
+</body>
+</html>
