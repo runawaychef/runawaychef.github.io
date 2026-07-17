@@ -62,9 +62,7 @@
 
   /* ---------- hero ---------- */
   .hero{ padding:76px 0 40px; position:relative; overflow:hidden; }
-  .hero-grid{
-    display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center;
-  }
+  .hero-grid{ max-width:640px; }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
     font:600 12px/1 'Karla',sans-serif; letter-spacing:.09em; text-transform:uppercase;
@@ -93,8 +91,8 @@
   .btn-primary svg{ width:16px; height:16px; }
 
   /* signature wheat illustration */
-  .stalk-scene{ position:relative; aspect-ratio:1/1.05; }
-  .stalk-scene svg{ width:100%; height:100%; }
+  .hero-banner{ margin-top:40px; }
+  .hero-banner img{ width:100%; max-width:640px; display:block; border-radius:20px; box-shadow:0 20px 50px -20px rgba(51,52,44,.3); }
 
   /* ---------- ticket strip (order cards motif) ---------- */
   .tickets{ padding:6px 0 64px; }
@@ -187,8 +185,7 @@
   .copyright{ margin-top:36px; font-size:12px; color:#a29c8c; }
 
   @media (max-width:860px){
-    .hero-grid{ grid-template-columns:1fr; }
-    .stalk-scene{ max-width:280px; margin:0 auto; order:-1; }
+    .hero-banner{ margin-top:28px; }
     .showcase{ grid-template-columns:1fr; padding:36px 28px 0; text-align:left; }
     .showcase-phone{ margin-top:8px; }
     .phone-frame{ max-width:220px; }
@@ -229,32 +226,10 @@
           <p class="lead">Manage orders, customers, recipes and inventory in one simple app. Analytics helps you understand your business better and make decisions with more confidence.</p>
         </div>
       </div>
+    </div>
 
-      <!-- signature illustration: stylised wheat stalk, echoes the upcoming logo direction -->
-      <div class="stalk-scene" aria-hidden="true">
-        <svg viewBox="0 0 320 340" fill="none">
-          <circle cx="160" cy="170" r="150" fill="#e3e8df"/>
-          <g stroke="#4f6349" stroke-width="3.4" stroke-linecap="round">
-            <path d="M160 60 L160 300" fill="none"/>
-          </g>
-          <g fill="#d9a441" stroke="#4f6349" stroke-width="2.6">
-            <ellipse cx="160" cy="88"  rx="15" ry="21"/>
-            <ellipse cx="133" cy="110" rx="14" ry="19" transform="rotate(-28 133 110)"/>
-            <ellipse cx="187" cy="110" rx="14" ry="19" transform="rotate(28 187 110)"/>
-            <ellipse cx="160" cy="128" rx="14.5" ry="20"/>
-            <ellipse cx="129" cy="150" rx="14" ry="19" transform="rotate(-30 129 150)"/>
-            <ellipse cx="191" cy="150" rx="14" ry="19" transform="rotate(30 191 150)"/>
-            <ellipse cx="160" cy="168" rx="14.5" ry="20"/>
-            <ellipse cx="131" cy="190" rx="13.5" ry="18" transform="rotate(-28 131 190)"/>
-            <ellipse cx="189" cy="190" rx="13.5" ry="18" transform="rotate(28 189 190)"/>
-            <ellipse cx="160" cy="206" rx="13.5" ry="18"/>
-          </g>
-          <g stroke="#7c9473" stroke-width="3" stroke-linecap="round" fill="none">
-            <path d="M160 240 C 130 250, 118 275, 122 300"/>
-            <path d="M160 250 C 190 260, 202 282, 198 306"/>
-          </g>
-        </svg>
-      </div>
+    <div class="hero-banner">
+      <img src="hero-banner.png" alt="Simple Bake">
     </div>
   </section>
 
@@ -266,7 +241,46 @@
       <p data-lang="ru">Без сложной бухгалтерии, бесконечных таблиц и блокнотов. Только инструменты, которыми вы действительно пользуетесь каждый день.</p>
       <p data-lang="en">No complicated accounting, endless spreadsheets, or notebooks. Just the tools you actually use every day.</p>
     </div>
+  </section>
 
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="section">
+    <div class="how">
+      <div class="section-head">
+        <span class="kicker" data-lang="ru">Как это работает</span>
+        <span class="kicker" data-lang="en">How it works</span>
+        <h2 data-lang="ru">Начать можно за один вечер</h2>
+        <h2 data-lang="en">Get started in one evening</h2>
+        <p data-lang="ru">Никакой сложной настройки — заносите то, что уже знаете о своей пекарне, и приложение начинает считать само.</p>
+        <p data-lang="en">No complicated setup — enter what you already know about your bakery, and the app starts calculating for you.</p>
+      </div>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="num">01</div>
+          <h3 data-lang="ru">Войдите через Google</h3>
+          <h3 data-lang="en">Sign in with Google</h3>
+          <p data-lang="ru">Без паролей и лишних форм — один вход, и вы уже внутри.</p>
+          <p data-lang="en">No passwords, no extra forms — one sign-in and you're in.</p>
+        </div>
+        <div class="how-step">
+          <div class="num">02</div>
+          <h3 data-lang="ru">Добавьте изделия и ингредиенты</h3>
+          <h3 data-lang="en">Add your items and ingredients</h3>
+          <p data-lang="ru">Впишите рецепты — себестоимость и остатки приложение посчитает само.</p>
+          <p data-lang="en">Enter your recipes — the app works out cost and stock levels on its own.</p>
+        </div>
+        <div class="how-step">
+          <div class="num">03</div>
+          <h3 data-lang="ru">Принимайте заказы</h3>
+          <h3 data-lang="en">Start taking orders</h3>
+          <p data-lang="ru">Дальше — просто пекарня в привычном ритме, только без бумаги и путаницы.</p>
+          <p data-lang="en">From here it's just your bakery, business as usual — minus the paper and the mess.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="showcase">
       <div class="showcase-text">
         <span class="kicker" data-lang="ru">Учёт заказов</span>
@@ -359,43 +373,6 @@
       <div class="showcase-phone">
         <div class="phone-frame">
           <img src="screenshot-calendar.jpg" alt="Simple Bake — calendar view">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= HOW IT WORKS ================= -->
-  <section class="section">
-    <div class="how">
-      <div class="section-head">
-        <span class="kicker" data-lang="ru">Как это работает</span>
-        <span class="kicker" data-lang="en">How it works</span>
-        <h2 data-lang="ru">Начать можно за один вечер</h2>
-        <h2 data-lang="en">Get started in one evening</h2>
-        <p data-lang="ru">Никакой сложной настройки — заносите то, что уже знаете о своей пекарне, и приложение начинает считать само.</p>
-        <p data-lang="en">No complicated setup — enter what you already know about your bakery, and the app starts calculating for you.</p>
-      </div>
-      <div class="how-steps">
-        <div class="how-step">
-          <div class="num">01</div>
-          <h3 data-lang="ru">Войдите через Google</h3>
-          <h3 data-lang="en">Sign in with Google</h3>
-          <p data-lang="ru">Без паролей и лишних форм — один вход, и вы уже внутри.</p>
-          <p data-lang="en">No passwords, no extra forms — one sign-in and you're in.</p>
-        </div>
-        <div class="how-step">
-          <div class="num">02</div>
-          <h3 data-lang="ru">Добавьте изделия и ингредиенты</h3>
-          <h3 data-lang="en">Add your items and ingredients</h3>
-          <p data-lang="ru">Впишите рецепты — себестоимость и остатки приложение посчитает само.</p>
-          <p data-lang="en">Enter your recipes — the app works out cost and stock levels on its own.</p>
-        </div>
-        <div class="how-step">
-          <div class="num">03</div>
-          <h3 data-lang="ru">Принимайте заказы</h3>
-          <h3 data-lang="en">Start taking orders</h3>
-          <p data-lang="ru">Дальше — просто пекарня в привычном ритме, только без бумаги и путаницы.</p>
-          <p data-lang="en">From here it's just your bakery, business as usual — minus the paper and the mess.</p>
         </div>
       </div>
     </div>
