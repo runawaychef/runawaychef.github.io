@@ -61,7 +61,7 @@
   .lang-toggle button.active{ background:var(--sage); color:#fff; }
 
   /* ---------- hero ---------- */
-  .hero{ padding:76px 0 40px; position:relative; overflow:hidden; }
+  .hero{ padding:56px 0 48px; position:relative; overflow:hidden; }
   .hero-grid{ max-width:640px; }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
@@ -116,7 +116,7 @@
   .ticket .tk-total{ margin-top:10px; padding-top:10px; border-top:1px dashed rgba(79,99,73,.2); display:flex; justify-content:space-between; font:700 14px 'Karla',sans-serif; color:var(--sage-dark); }
 
   /* ---------- features ---------- */
-  .section{ padding:70px 0; }
+  .section{ padding:0 0 48px; }
   .section-head{ max-width:640px; margin:0 0 44px; }
   .kicker{ font:600 12px/1 'Karla',sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--terracotta); margin-bottom:12px; display:block;}
   .section-head h2{ font-size:clamp(26px,3.4vw,36px); color:var(--sage-dark); margin:0 0 14px; font-weight:600; letter-spacing:-.01em; }
@@ -212,6 +212,10 @@
 
   <!-- ================= HERO ================= -->
   <section class="hero">
+    <div class="hero-banner">
+      <img src="hero-banner.png" alt="Simple Bake">
+    </div>
+
     <div class="hero-grid">
       <div>
         <h1 data-lang="ru">Меньше бумажной<br>работы. <em>Больше</em><br>выпечки.</h1>
@@ -226,10 +230,6 @@
           <p class="lead">Manage orders, customers, recipes and inventory in one simple app. Analytics helps you understand your business better and make decisions with more confidence.</p>
         </div>
       </div>
-    </div>
-
-    <div class="hero-banner">
-      <img src="hero-banner.png" alt="Simple Bake">
     </div>
   </section>
 
