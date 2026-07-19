@@ -224,10 +224,6 @@
 <header>
   <div class="header-inner">
     <div class="wordmark">Simple Bake<small>by Runaway Chef Lab</small></div>
-    <div class="lang-toggle">
-      <button type="button" id="btnRu" onclick="setSiteLang('ru')">RU</button>
-      <button type="button" id="btnEn" onclick="setSiteLang('en')">EN</button>
-    </div>
   </div>
 </header>
 
@@ -435,6 +431,12 @@
         <a href="#" onclick="openLegalModal('privacy'); return false;"><span data-lang="ru">Конфиденциальность</span><span data-lang="en">Privacy Policy</span></a>
         <a href="#" onclick="openLegalModal('terms'); return false;"><span data-lang="ru">Условия использования</span><span data-lang="en">Terms of Use</span></a>
       </div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:28px;">
+    <div class="lang-toggle" style="display:inline-flex;">
+      <button type="button" id="btnEn" onclick="setSiteLang('en')">EN</button>
+      <button type="button" id="btnRu" onclick="setSiteLang('ru')">RU</button>
     </div>
   </div>
   <div class="wrap copyright">© 2026 Runaway Chef Lab · Simple Bake</div>
