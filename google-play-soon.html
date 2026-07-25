@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru" data-current="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Bake — Coming soon to Google Play</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f4f1ea;
+    --sage:#7c9473;
+    --sage-dark:#4f6349;
+    --sage-light:#e3e8df;
+    --honey:#d9a441;
+    --ink:#33342c;
+    --paper:#fffdf8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:'Karla', -apple-system, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh; display:flex; flex-direction:column;
+  }
+  h1,.wordmark{ font-family:'Fraunces', serif; }
+  a{color:inherit;}
+  header{
+    padding:16px 24px; border-bottom:1px solid rgba(79,99,73,.12);
+  }
+  .wordmark{ font-size:22px; font-weight:600; color:var(--sage-dark); letter-spacing:-.01em; max-width:1120px; margin:0 auto; }
+  .wordmark small{ display:block; font-family:'Karla',sans-serif; font-weight:500; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:#9a9483; margin-top:1px;}
+  main{
+    flex:1; display:flex; align-items:center; justify-content:center; padding:40px 24px;
+  }
+  .card{
+    max-width:480px; text-align:center;
+  }
+  .icon-wrap{
+    width:64px; height:64px; border-radius:18px; background:var(--sage-light);
+    display:flex; align-items:center; justify-content:center; margin:0 auto 22px;
+  }
+  .icon-wrap svg{ width:30px; height:30px; color:var(--sage-dark); }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font:600 12px/1 'Karla',sans-serif; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--sage-dark); background:var(--sage-light); padding:7px 14px 7px 10px; border-radius:999px;
+    margin-bottom:18px;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--honey); }
+  h1{ font-size:clamp(26px,4vw,34px); line-height:1.15; font-weight:600; color:var(--sage-dark); margin:0 0 14px; }
+  p.lead{ font-size:16.5px; line-height:1.6; color:#5b5b4f; margin:0 0 30px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:9px; font:600 15px/1 'Karla',sans-serif;
+    padding:15px 26px; border-radius:13px; text-decoration:none; cursor:pointer; border:1px solid transparent;
+    transition:.15s; background:var(--sage-dark); color:#fff;
+  }
+  .btn:hover{ background:#3e5039; }
+  .btn svg{ width:16px; height:16px; }
+  .back-link{
+    display:block; margin-top:22px; font-size:14px; color:#8a8676; text-decoration:none;
+  }
+  .back-link:hover{ color:var(--sage-dark); }
+  html [data-lang]{ display:none; }
+  html[data-current="ru"] [data-lang="ru"]{ display:block; }
+  html[data-current="ru"] span[data-lang="ru"]{ display:inline; }
+  html[data-current="en"] [data-lang="en"]{ display:block; }
+  html[data-current="en"] span[data-lang="en"]{ display:inline; }
+  .lang-toggle{
+    display:inline-flex; background:var(--paper); border:1px solid rgba(79,99,73,.18);
+    border-radius:999px; padding:3px; gap:2px; margin-top:28px;
+  }
+  .lang-toggle button{
+    border:none; background:none; font:600 12px/1 'Karla',sans-serif; letter-spacing:.03em;
+    padding:7px 13px; border-radius:999px; color:#8a8676; cursor:pointer; transition:.15s;
+  }
+  .lang-toggle button.active{ background:var(--sage); color:#fff; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wordmark">Simple Bake<small>by Runaway Chef Lab</small></div>
+</header>
+
+<main>
+  <div class="card">
+    <div class="icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"/></svg>
+    </div>
+    <span class="eyebrow"><span class="dot"></span><span data-lang="ru">Скоро в Google Play</span><span data-lang="en">Coming soon to Google Play</span></span>
+    <h1 data-lang="ru">Мы почти готовы</h1>
+    <h1 data-lang="en">We're almost ready</h1>
+    <p class="lead" data-lang="ru">Simple Bake проходит финальное тестирование перед публикацией в Google Play. А пока — можно начать пользоваться прямо сейчас через браузер, без установки из магазина приложений.</p>
+    <p class="lead" data-lang="en">Simple Bake is going through final testing before its Google Play release. In the meantime, you can start using it right away in your browser — no app store install needed.</p>
+
+    <a class="btn" href="https://runawaychef.github.io/Public-Run-Away-Chef-Redesign/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+      <span data-lang="ru">Войти в систему</span>
+      <span data-lang="en">Log in</span>
+    </a>
+
+    <a class="back-link" href="index.html"><span data-lang="ru">← Назад на главную</span><span data-lang="en">← Back to home</span></a>
+
+    <div class="lang-toggle">
+      <button type="button" id="btnEn" onclick="setSiteLang('en')">EN</button>
+      <button type="button" id="btnRu" onclick="setSiteLang('ru')">RU</button>
+    </div>
+  </div>
+</main>
+
+<script>
+  function setSiteLang(lang){
+    document.documentElement.setAttribute('data-current', lang);
+    document.documentElement.setAttribute('lang', lang);
+    document.getElementById('btnRu').classList.toggle('active', lang === 'ru');
+    document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+    localStorage.setItem('siteLang', lang);
+  }
+  var savedLang = localStorage.getItem('siteLang');
+  var initialLang = savedLang || ((navigator.language || '').toLowerCase().startsWith('ru') ? 'ru' : 'en');
+  setSiteLang(initialLang);
+</script>
+
+</body>
+</html>
