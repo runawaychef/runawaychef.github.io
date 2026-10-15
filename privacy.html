@@ -63,6 +63,7 @@
 <p><b>1.3. Технические данные.</b> Мы можем автоматически собирать техническую информацию, необходимую для работы сервиса (тип устройства, версия приложения, журналы ошибок) — исключительно для диагностики и улучшения работы Приложения.</p>
 <p><b>1.4. Платёжные данные.</b> При оформлении платной подписки платёж обрабатывается через Google Play Billing. Разработчик не получает и не хранит данные банковских карт — они обрабатываются напрямую Google в соответствии с <a href="https://policies.google.com/privacy" target="_blank">Политикой конфиденциальности Google</a>.</p>
 <p><b>1.5. Приблизительная геолокация.</b> Приложение может определять приблизительную страну вашего местоположения по IP-адресу (без точных координат и без отслеживания перемещений) — для внутренних целей организации сервиса, например региональной статистики. Определение выполняется не чаще одного раза в 30 дней через сторонний сервис геолокации по IP.</p>
+<p><b>1.6. Банковские данные (необязательная функция).</b> Если владелец организации подключает банковский счёт для автоматического учёта поступлений, Приложение через сервис банковского доступа Enable Banking получает доступ только на чтение к поступлениям на выбранный счёт: дату, сумму, имя плательщика, его IBAN и назначение платежа. Доступ предоставляется только с вашего согласия при входе в ваш банк. Мы не получаем и не храним ваши данные для входа в банк и не можем совершать платежи. Согласие действует ограниченное время (до 180 дней) и может быть отозвано в любой момент в Настройках → Банк («Отключить») или в вашем банке. Данные используются только для сопоставления поступлений со счетами вашей организации.</p>
 
 <h2>2. Как мы используем данные</h2>
 <ul>
@@ -87,11 +88,13 @@
   <li><b>Google Play Billing</b> — обработка платежей за подписку (при использовании платного тарифа)</li>
   <li><b>Google Sign-In</b> — опциональный вход через аккаунт Google</li>
   <li><b>ipapi.co</b> — определение приблизительной страны по IP-адресу</li>
+  <li><b>Enable Banking</b> — получение информации о поступлениях на счёт (только по вашему согласию и только при использовании банковской функции)</li>
 </ul>
 <p>Мы не передаём ваши данные никаким иным третьим лицам, за исключением случаев, предусмотренных законом (например, по официальному запросу государственных органов).</p>
 
 <h2>6. Хранение и удаление данных</h2>
 <p>Данные хранятся до тех пор, пока вы используете Приложение. Удаление Приложения с устройства <b>не удаляет</b> вашу учётную запись и сохранённые данные — они остаются на сервере.</p>
+<p>После отключения банка новые данные не загружаются; ранее загруженные поступления хранятся вместе с данными организации и удаляются вместе с ними.</p>
 
 <p id="delete-account">Чтобы удалить учётную запись и все связанные данные, откройте в Приложении Настройки → «Удалить аккаунт» (доступно владельцу организации) — откроется готовое письмо в поддержку. Также можно написать нам напрямую по контактам ниже («Написать нам» в самом Приложении или email). Запрос обрабатывается вручную, данные удаляются в разумный срок, за исключением случаев, когда их сохранение требуется по закону.</p>
 
@@ -137,6 +140,7 @@
 <p><b>1.3. Technical data.</b> We may automatically collect technical information needed for the service to run (device type, app version, error logs) — solely for diagnostics and improving the App.</p>
 <p><b>1.4. Payment data.</b> When you purchase a paid subscription, payment is processed through Google Play Billing. The Developer does not receive or store card details — they are processed directly by Google in accordance with <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>.</p>
 <p><b>1.5. Approximate location.</b> The App may determine your approximate country based on your IP address (no precise coordinates and no movement tracking) — used for internal service organization purposes, such as regional statistics. Detection occurs no more than once every 30 days via a third-party IP geolocation service.</p>
+<p><b>1.6. Bank data (optional feature).</b> If the organization owner connects a bank account for automatic tracking of incoming payments, the App uses the bank access service Enable Banking to obtain read-only access to incoming payments on the selected account: date, amount, payer name, payer IBAN and payment reference. Access is granted only with your consent when you sign in to your bank. We do not receive or store your bank sign-in credentials and cannot make payments. The consent is valid for a limited time (up to 180 days) and can be withdrawn at any time in Settings → Bank ("Disconnect") or with your bank. The data is used only to match incoming payments with your organization's invoices.</p>
 
 <h2>2. How we use data</h2>
 <ul>
@@ -161,11 +165,13 @@
   <li><b>Google Play Billing</b> — subscription payment processing (for paid plans)</li>
   <li><b>Google Sign-In</b> — optional sign-in via Google account</li>
   <li><b>ipapi.co</b> — approximate country detection based on IP address</li>
+  <li><b>Enable Banking</b> — obtaining information about incoming payments on your account (only with your consent and only when the bank feature is used)</li>
 </ul>
 <p>We do not share your data with any other third parties, except as required by law (for example, in response to a formal request from government authorities).</p>
 
 <h2>6. Data retention and deletion</h2>
 <p>Data is retained for as long as you use the App. Deleting the App from your device does <b>not</b> delete your account or stored data — it remains on the server.</p>
+<p>After the bank is disconnected, no new data is loaded; previously loaded payments are kept with the organization's data and are deleted together with it.</p>
 
 <p id="delete-account-en">To delete your account and all associated data, open Settings → "Delete account" inside the App (available to the organization owner) — this opens a ready email to support. You can also contact us directly using the details below ("Contact us" inside the App, or email). Requests are handled manually and data is deleted within a reasonable time, except where retention is required by law.</p>
 
