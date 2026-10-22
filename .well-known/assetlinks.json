@@ -5,7 +5,8 @@
       "namespace": "android_app",
       "package_name": "io.github.runawaychef.twa",
       "sha256_cert_fingerprints": [
-        "36:42:AD:9B:9B:1B:EC:D2:B2:5D:6A:22:49:DF:6A:1C:A4:E6:59:15:D2:DC:E9:8A:76:59:D5:74:52:8F:BC:9D"
+        "36:42:AD:9B:9B:1B:EC:D2:B2:5D:6A:22:49:DF:6A:1C:A4:E6:59:15:D2:DC:E9:8A:76:59:D5:74:52:8F:BC:9D",
+        "D1:0E:ED:B5:B8:A8:5A:E6:1A:DB:62:45:2F:2E:DF:D8:67:5C:1F:51:66:AC:B1:81:92:41:E3:44:57:9C:66:75"
       ]
     }
   }
