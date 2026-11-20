@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-current="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Bake — Get it on Google Play</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Simple Bake by Runaway Chef Lab — bakery management app. Get it on Google Play.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f4f1ea;
+    --sage:#7c9473;
+    --sage-dark:#4f6349;
+    --sage-light:#e3e8df;
+    --honey:#d9a441;
+    --ink:#33342c;
+    --paper:#fffdf8;
+  }
+  *{box-sizing:border-box;}
+  html,body{ height:100%; }
+  body{
+    margin:0; background:var(--cream); color:var(--ink);
+    font-family:'Karla', -apple-system, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh; min-height:100dvh; display:flex; flex-direction:column;
+  }
+  h1,.wordmark{ font-family:'Fraunces', serif; }
+  header{ padding:16px 24px; border-bottom:1px solid rgba(79,99,73,.12); }
+  .wordmark{ font-size:22px; font-weight:600; color:var(--sage-dark); letter-spacing:-.01em; max-width:1120px; margin:0 auto; }
+  .wordmark small{ display:block; font-family:'Karla',sans-serif; font-weight:500; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:#9a9483; margin-top:1px; }
+  main{ flex:1; display:flex; align-items:center; justify-content:center; padding:24px; }
+  .card{ width:100%; max-width:420px; text-align:center; }
+  .icon-wrap{
+    width:64px; height:64px; border-radius:18px; background:var(--sage-light);
+    display:flex; align-items:center; justify-content:center; margin:0 auto 22px;
+  }
+  .icon-wrap svg{ width:30px; height:30px; color:var(--sage-dark); }
+  h1{ font-size:clamp(26px,7vw,34px); line-height:1.15; font-weight:600; color:var(--sage-dark); margin:0 0 12px; }
+  p.lead{ font-size:16.5px; line-height:1.55; color:#5b5b4f; margin:0 0 28px; }
+  .btn{
+    display:flex; align-items:center; justify-content:center; gap:10px; width:100%;
+    font:600 18px/1 'Karla',sans-serif; padding:19px 26px; border-radius:14px;
+    text-decoration:none; background:var(--sage-dark); color:#fff;
+    box-shadow:0 6px 14px -6px rgba(79,99,73,.55); transition:.15s;
+  }
+  .btn:hover,.btn:active{ background:#3e5039; }
+  .btn svg{ width:20px; height:20px; flex:none; }
+  .hint{ margin:18px 0 0; font-size:14px; line-height:1.5; color:#8a8676; }
+  html [data-lang]{ display:none; }
+  html[data-current="ru"] [data-lang="ru"]{ display:block; }
+  html[data-current="ru"] span[data-lang="ru"]{ display:inline; }
+  html[data-current="en"] [data-lang="en"]{ display:block; }
+  html[data-current="en"] span[data-lang="en"]{ display:inline; }
+  .lang-toggle{
+    display:inline-flex; background:var(--paper); border:1px solid rgba(79,99,73,.18);
+    border-radius:999px; padding:3px; gap:2px; margin-top:26px;
+  }
+  .lang-toggle button{
+    border:none; background:none; font:600 12px/1 'Karla',sans-serif; letter-spacing:.03em;
+    padding:7px 13px; border-radius:999px; color:#8a8676; cursor:pointer; transition:.15s;
+  }
+  .lang-toggle button.active{ background:var(--sage); color:#fff; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wordmark">Simple Bake<small>by Runaway Chef Lab</small></div>
+</header>
+
+<main>
+  <div class="card">
+    <div class="icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"/></svg>
+    </div>
+    <h1 data-lang="ru">Simple Bake — учёт для кондитера</h1>
+    <h1 data-lang="en">Simple Bake — bakery management</h1>
+    <p class="lead" data-lang="ru">Заказы, клиенты, рецепты и склад в одном приложении.</p>
+    <p class="lead" data-lang="en">Orders, customers, recipes and inventory in one app.</p>
+
+    <a class="btn" href="https://play.google.com/store/apps/details?id=io.github.runawaychef.twa&amp;referrer=utm_source%3Dinstagram%26utm_medium%3Dstory%26utm_campaign%3Dlaunch" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"/></svg>
+      <span data-lang="ru">Скачать в Google Play</span>
+      <span data-lang="en">Get it on Google Play</span>
+    </a>
+
+    <p class="hint" data-lang="ru">Не открывается? Нажмите меню «⋮» → «Открыть в браузере».</p>
+    <p class="hint" data-lang="en">Not opening? Tap the menu “⋮” → “Open in browser”.</p>
+
+    <div class="lang-toggle">
+      <button type="button" id="btnEn" onclick="setSiteLang('en')">EN</button>
+      <button type="button" id="btnRu" onclick="setSiteLang('ru')">RU</button>
+    </div>
+  </div>
+</main>
+
+<script>
+  function setSiteLang(lang){
+    document.documentElement.setAttribute('data-current', lang);
+    document.documentElement.setAttribute('lang', lang);
+    document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+    document.getElementById('btnRu').classList.toggle('active', lang === 'ru');
+    try { localStorage.setItem('siteLang', lang); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('siteLang'); } catch (e) {}
+  setSiteLang(saved || ((navigator.language || '').toLowerCase().indexOf('ru') === 0 ? 'ru' : 'en'));
+</script>
+</body>
+</html>
