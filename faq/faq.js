@@ -128,7 +128,7 @@ function pageSection(){
    var h='<div class="layout">'+side+'<div class="content"><p class="crumbs">'+T.crumb+' / '+esc(tx(cur.title))+'</p><h1>'+esc(tx(cur.title))+'</h1>';
    if(cur.desc)h+='<p class="lead">'+esc(tx(cur.desc))+'</p>';
    h+=(c.items||[]).map(itemHTML).join('');
-   h+='<div class="help">'+T.noAnswer+' <a href="mailto:'+SUPPORT+'"'+(EMBED?' target="_top"':'')+'>'+SUPPORT+'</a></div></div></div>';
+   if(EMBED)h+='<div class="help">'+T.noAnswer+' <a href="mailto:'+SUPPORT+'"'+(EMBED?' target="_top"':'')+'>'+SUPPORT+'</a></div></div></div>';
    shell('guide',h);
    var m=/^#i-(.+)$/.exec(location.hash);
    if(m){var el=document.getElementById('i-'+m[1]);if(el){el.open=true;el.scrollIntoView()}}
