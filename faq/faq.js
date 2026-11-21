@@ -26,14 +26,23 @@ function multi(s){return esc(s).replace(/\n/g,'<br>')}
 function getJSON(path){return fetch(path,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error(path+' '+r.status);return r.json()})}
 function tx(o){if(o==null)return '';if(typeof o==='string')return o;return o[LANG]||o.ru||o.en||''}
 function link(path,extra){var q=[];if(extra)q.push(extra);q.push('lang='+LANG);return path+'?'+q.join('&')}
+var LMETA={en:{n:'English',e:'English'},ru:{n:'Русский',e:'Russian'},lt:{n:'Lietuvių',e:'Lithuanian',d:1},uk:{n:'Українська',e:'Ukrainian',d:1}};
 function langSwitch(){
- var out='<div class="langs" role="group" aria-label="Language">';
+ var out='<div class="langs" id="langs"><button type="button" class="lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="Language">'+LMETA[LANG].n+'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 9l7 7 7-7"/></svg></button><div class="lang-list">';
  LANGS.forEach(function(l){
   var u=location.search.replace(/([?&])lang=[^&]*&?/,'$1').replace(/[?&]$/,'');
   u=u+(u.indexOf('?')>-1?'&':'?')+'lang='+l;
-  out+='<a href="'+esc(location.pathname+u+location.hash)+'"'+(l===LANG?' aria-current="true"':'')+'>'+l.toUpperCase()+'</a>';
+  var m=LMETA[l],sel=l===LANG;
+  out+='<a class="lang-item'+(sel?' selected':'')+'" href="'+esc(location.pathname+u+location.hash)+'"><span>'+m.n+' <span class="lang-hint">'+m.e+'</span>'+(m.d?'<span class="lang-draft">'+(LANG==='ru'?'Черновик':'Draft')+'</span>':'')+'</span>'+(sel?'<svg class="lang-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>':'')+'</a>';
  });
- return out+'</div>';
+ return out+'</div></div>';
+}
+function bindLang(){
+ var w=document.getElementById('langs');if(!w)return;
+ var b=w.querySelector('.lang-btn');
+ b.addEventListener('click',function(e){e.stopPropagation();var o=w.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+ document.addEventListener('click',function(){w.classList.remove('open');b.setAttribute('aria-expanded','false')});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape')w.classList.remove('open')});
 }
 function header(active){
  return '<header class="top"><div class="wrap"><a class="wordmark" href="/">Simple Bake</a><nav class="main" aria-label="Main">'+
@@ -48,6 +57,7 @@ function notice(){return LANG==='ru'?'':'<p class="notice">'+esc(UI.en.notice)+'
 function shell(active,inner){
  document.documentElement.lang=LANG;
  document.getElementById('app').innerHTML=header(active)+'<main><div class="wrap">'+notice()+inner+'</div></main>'+footer();
+ bindLang();
 }
 function readySections(list){return list.filter(function(s){return s.ready}).sort(function(a,b){return (a.order||0)-(b.order||0)})}
 function loadSection(id){return getJSON(BASE+'content/'+id+'.ru.json')}
@@ -140,7 +150,7 @@ function pageNews(){
 }
 function fail(){
  document.documentElement.lang=LANG;
- document.getElementById('app').innerHTML=header('guide')+'<main><div class="wrap"><h1>'+T.notReady+'</h1><p><a href="'+link(BASE)+'">'+T.home+'</a></p></div></main>'+footer();
+ document.getElementById('app').innerHTML=header('guide')+'<main><div class="wrap"><h1>'+T.notReady+'</h1><p><a href="'+link(BASE)+'">'+T.home+'</a></p></div></main>'+footer();bindLang();
 }
 var pg=document.body.getAttribute('data-page');
 if(pg==='home')pageHome();else if(pg==='section')pageSection();else if(pg==='news')pageNews();
