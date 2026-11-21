@@ -48,6 +48,14 @@
   }
   .btn:hover,.btn:active{ background:#3e5039; }
   .btn svg{ width:20px; height:20px; flex:none; }
+  .btn2{
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    margin:12px 28px 0; height:38px; border-radius:11px;
+    font:600 13px/1 'Karla',sans-serif; text-decoration:none;
+    color:var(--sage-dark); background:transparent; border:1px solid var(--sage-dark);
+    transition:.15s;
+  }
+  .btn2:hover,.btn2:active{ background:var(--sage-light); }
   .hint{ margin:18px 0 0; font-size:14px; line-height:1.5; color:#8a8676; }
   html [data-lang]{ display:none; }
   html[data-current="ru"] [data-lang="ru"]{ display:block; }
@@ -85,6 +93,12 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"/></svg>
       <span data-lang="ru">Скачать в Google Play</span>
       <span data-lang="en">Get it on Google Play</span>
+    </a>
+
+    <a class="btn2" href="https://simple-bake.com/?utm_source=instagram&amp;utm_medium=get">
+      <span data-lang="ru">Посмотреть на сайте</span>
+      <span data-lang="en">Visit the website</span>
+      <span aria-hidden="true">→</span>
     </a>
 
     <p class="hint" data-lang="ru">Не открывается? Нажмите меню «⋮» → «Открыть в браузере».</p>
