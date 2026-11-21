@@ -70,11 +70,18 @@ footer.bot .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-
 .langs{position:relative;display:inline-block}
 .lang-btn{display:inline-flex;align-items:center;gap:6px;background:var(--paper);border:1px solid #c9d1c4;border-radius:999px;padding:6px 12px;font:600 13px Karla,sans-serif;color:var(--sage-dark);cursor:pointer}
 .lang-btn svg{width:12px;height:12px}
-.lang-list{display:none;position:absolute;right:0;top:calc(100% + 8px);z-index:50;min-width:270px;background:var(--paper);border-radius:20px;padding:10px;box-shadow:0 22px 44px -14px rgba(40,32,12,.45),0 4px 10px -4px rgba(40,32,12,.18);border:1px solid rgba(255,255,255,.9);flex-direction:column;gap:10px}
+.lang-list{display:none;position:absolute;right:0;top:calc(100% + 8px);z-index:50;width:min(270px,calc(100vw - 32px));background:var(--paper);border-radius:20px;padding:10px;box-shadow:0 22px 44px -14px rgba(40,32,12,.45),0 4px 10px -4px rgba(40,32,12,.18);border:1px solid rgba(255,255,255,.9);flex-direction:column;gap:10px}
 .langs.open .lang-list{display:flex}
 .lang-item{display:flex;align-items:center;justify-content:space-between;min-height:48px;padding:8px 12px;border:1px solid rgba(255,255,255,.9);border-radius:14px;background:#fff;box-shadow:0 12px 24px -10px rgba(70,58,30,.32),0 3px 6px -2px rgba(70,58,30,.12),inset 0 1px 0 #fff;font-size:14.5px;font-weight:600;color:#322f28;text-decoration:none}
 .lang-item.selected{box-shadow:0 0 0 2px rgba(124,148,115,.6),0 12px 24px -10px rgba(70,58,30,.32);color:var(--sage-dark)}
 .lang-hint{font-size:12px;font-weight:500;color:#8d887b;margin-left:4px}
 .lang-draft{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;background:#f3e3c4;color:#8a6a24;padding:2px 6px;border-radius:999px;margin-left:6px;vertical-align:middle}
 .lang-check{width:18px;height:18px;flex:none}
-@media(max-width:700px){.lang-list{right:auto;left:0}}
+header.top .wordmark{order:1;margin-right:auto}
+header.top nav.main{order:2}
+header.top .langs{order:3}
+@media(max-width:700px){
+header.top .wrap{gap:4px 12px;padding-top:12px;padding-bottom:8px}
+header.top nav.main{order:4;flex:0 0 100%;gap:4px 18px;font-size:15px}
+header.top .langs{order:2}
+}

@@ -48,7 +48,7 @@ function header(active){
  return '<header class="top"><div class="wrap"><a class="wordmark" href="/">Simple Bake</a><nav class="main" aria-label="Main">'+
  '<a href="'+link(BASE)+'"'+(active==='guide'?' aria-current="page"':'')+'>'+T.guide+'</a>'+
  '<a href="'+link(BASE+'news/')+'"'+(active==='news'?' aria-current="page"':'')+'>'+T.news+'</a>'+
- '<a href="mailto:'+SUPPORT+'">'+T.support+'</a>'+langSwitch()+'</nav></div></header>';
+ '<a href="mailto:'+SUPPORT+'">'+T.support+'</a></nav>'+langSwitch()+'</div></header>';
 }
 function footer(){
  return '<footer class="bot"><div class="wrap"><span>'+T.noAnswer+' <a href="mailto:'+SUPPORT+'">'+SUPPORT+'</a></span><span>'+T.build+' '+BUILD+'</span></div></footer>';
