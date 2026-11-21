@@ -4,6 +4,7 @@
 'use strict';
 var BASE='/faq/';
 var LANGS=['ru','en','lt','uk'];
+var EMBED=/[?&]embed=1(&|$|#)/.test(location.search);
 var UI={
 ru:{guide:'Инструкция',news:'Что нового',support:'Поддержка',all:'Разделы',searchLabel:'Поиск по инструкции',searchPh:'Например: как установить приложение',start:'Начать за 5 минут',found:'Найдено',nothing:'Ничего не найдено. Напишите нам, и мы добавим ответ.',short:'Коротко.',where:'Где нажать.',important:'Важно.',plan:'Тариф',added:'Добавлено: сборка',updated:'Обновлено: сборка',noAnswer:'Не нашли ответ? Напишите нам:',build:'Актуально для сборки',notReady:'Этот раздел ещё готовится.',home:'На главную инструкции',newsLead:'Короткие записи о том, что появилось в программе. Обновите приложение, и новое будет на месте.',newsRead:'Читать:',build2:'Сборка',notice:'',sections:'РАЗДЕЛЫ',crumb:'Инструкция'},
 en:{guide:'Guide',news:"What's new",support:'Support',all:'Sections',searchLabel:'Search the guide',searchPh:'For example: how to install the app',start:'Start in 5 minutes',found:'Found',nothing:'Nothing found. Write to us and we will add an answer.',short:'In short.',where:'Where to tap.',important:'Good to know.',plan:'Plan',added:'Added: build',updated:'Updated: build',noAnswer:"Can't find the answer? Write to us:",build:'Current for build',notReady:'This section is being prepared.',home:'Back to the guide',newsLead:'Short notes on what has appeared in the app. Update the app and the new features will be there.',newsRead:'Read:',build2:'Build',notice:'The guide is currently available in Russian only; translations are coming. Interface language follows your choice.',sections:'SECTIONS',crumb:'Guide'}
@@ -13,7 +14,7 @@ var SUPPORT='simplebake.support@gmail.com';
 function qs(n){var m=new RegExp('[?&]'+n+'=([^&#]*)').exec(location.search);return m?decodeURIComponent(m[1]):null}
 function getLang(){
  var p=qs('lang');
- if(p&&LANGS.indexOf(p)>-1){try{if(p==='ru'||p==='en')localStorage.setItem('siteLang',p)}catch(e){}return p}
+ if(p&&LANGS.indexOf(p)>-1){if(!EMBED){try{if(p==='ru'||p==='en')localStorage.setItem('siteLang',p)}catch(e){}}return p}
  var s=null;try{s=localStorage.getItem('siteLang')}catch(e){}
  if(s==='ru'||s==='en')return s;
  var n=(navigator.language||'').toLowerCase().slice(0,2);
@@ -25,7 +26,7 @@ function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'
 function multi(s){return esc(s).replace(/\n/g,'<br>')}
 function getJSON(path){return fetch(path,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error(path+' '+r.status);return r.json()})}
 function tx(o){if(o==null)return '';if(typeof o==='string')return o;return o[LANG]||o.ru||o.en||''}
-function link(path,extra){var q=[];if(extra)q.push(extra);q.push('lang='+LANG);return path+'?'+q.join('&')}
+function link(path,extra){var q=[];if(extra)q.push(extra);q.push('lang='+LANG);if(EMBED)q.push('embed=1');return path+'?'+q.join('&')}
 var LMETA={en:{n:'English',e:'English'},ru:{n:'Русский',e:'Russian'},lt:{n:'Lietuvių',e:'Lithuanian',d:1},uk:{n:'Українська',e:'Ukrainian',d:1}};
 function langSwitch(){
  var out='<div class="langs" id="langs"><button type="button" class="lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="Language">'+LMETA[LANG].n+'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 9l7 7 7-7"/></svg></button><div class="lang-list">';
@@ -45,13 +46,15 @@ function bindLang(){
  document.addEventListener('keydown',function(e){if(e.key==='Escape')w.classList.remove('open')});
 }
 function header(active){
+ if(EMBED){return '<nav class="embedbar" aria-label="Main"><a href="'+link(BASE)+'"'+(active==='guide'?' aria-current="page"':'')+'>'+T.guide+'</a><a href="'+link(BASE+'news/')+'"'+(active==='news'?' aria-current="page"':'')+'>'+T.news+'</a></nav>'}
  return '<header class="top"><div class="wrap"><a class="wordmark" href="/">Simple Bake</a><nav class="main" aria-label="Main">'+
  '<a href="'+link(BASE)+'"'+(active==='guide'?' aria-current="page"':'')+'>'+T.guide+'</a>'+
  '<a href="'+link(BASE+'news/')+'"'+(active==='news'?' aria-current="page"':'')+'>'+T.news+'</a>'+
- '<a href="mailto:'+SUPPORT+'">'+T.support+'</a></nav>'+langSwitch()+'</div></header>';
+ '<a href="mailto:'+SUPPORT+'"'+(EMBED?' target="_top"':'')+'>'+T.support+'</a></nav>'+langSwitch()+'</div></header>';
 }
 function footer(){
- return '<footer class="bot"><div class="wrap"><span>'+T.noAnswer+' <a href="mailto:'+SUPPORT+'">'+SUPPORT+'</a></span><span>'+T.build+' '+BUILD+'</span></div></footer>';
+ if(EMBED)return '';
+ return '<footer class="bot"><div class="wrap"><span>'+T.noAnswer+' <a href="mailto:'+SUPPORT+'"'+(EMBED?' target="_top"':'')+'>'+SUPPORT+'</a></span><span>'+T.build+' '+BUILD+'</span></div></footer>';
 }
 function notice(){return LANG==='ru'?'':'<p class="notice">'+esc(UI.en.notice)+'</p>'}
 function shell(active,inner){
@@ -125,7 +128,7 @@ function pageSection(){
    var h='<div class="layout">'+side+'<div class="content"><p class="crumbs">'+T.crumb+' / '+esc(tx(cur.title))+'</p><h1>'+esc(tx(cur.title))+'</h1>';
    if(cur.desc)h+='<p class="lead">'+esc(tx(cur.desc))+'</p>';
    h+=(c.items||[]).map(itemHTML).join('');
-   h+='<div class="help">'+T.noAnswer+' <a href="mailto:'+SUPPORT+'">'+SUPPORT+'</a></div></div></div>';
+   h+='<div class="help">'+T.noAnswer+' <a href="mailto:'+SUPPORT+'"'+(EMBED?' target="_top"':'')+'>'+SUPPORT+'</a></div></div></div>';
    shell('guide',h);
    var m=/^#i-(.+)$/.exec(location.hash);
    if(m){var el=document.getElementById('i-'+m[1]);if(el){el.open=true;el.scrollIntoView()}}
@@ -152,6 +155,7 @@ function fail(){
  document.documentElement.lang=LANG;
  document.getElementById('app').innerHTML=header('guide')+'<main><div class="wrap"><h1>'+T.notReady+'</h1><p><a href="'+link(BASE)+'">'+T.home+'</a></p></div></main>'+footer();bindLang();
 }
+if(EMBED)document.body.classList.add('embed');
 var pg=document.body.getAttribute('data-page');
 if(pg==='home')pageHome();else if(pg==='section')pageSection();else if(pg==='news')pageNews();
 })();
