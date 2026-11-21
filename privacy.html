@@ -240,11 +240,13 @@ function setDocLang(lang) {
     try {
         if (window.self !== window.top) {
             document.querySelector('.lang-switch').style.display = 'none';
+            document.getElementById('backLink').style.display = 'none';
         }
     } catch (e) {
         // Если чтение window.top заблокировано политикой браузера — считаем,
         // что мы внутри iframe, и на всякий случай тоже прячем переключатель.
         document.querySelector('.lang-switch').style.display = 'none';
+        document.getElementById('backLink').style.display = 'none';
     }
 })();
 </script>
