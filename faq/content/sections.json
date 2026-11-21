@@ -1,0 +1,123 @@
+[
+ {
+  "id": "start",
+  "order": 0,
+  "ready": true,
+  "title": {
+   "ru": "Начало работы",
+   "en": "Начало работы"
+  },
+  "desc": {
+   "ru": "Установка, регистрация, первый запуск, язык",
+   "en": "Установка, регистрация, первый запуск, язык"
+  }
+ },
+ {
+  "id": "clients",
+  "order": 1,
+  "ready": false,
+  "title": {
+   "ru": "Клиенты",
+   "en": "Клиенты"
+  }
+ },
+ {
+  "id": "menu",
+  "order": 2,
+  "ready": false,
+  "title": {
+   "ru": "Меню и себестоимость",
+   "en": "Меню и себестоимость"
+  }
+ },
+ {
+  "id": "orders",
+  "order": 3,
+  "ready": false,
+  "title": {
+   "ru": "Заказы",
+   "en": "Заказы"
+  }
+ },
+ {
+  "id": "stock",
+  "order": 4,
+  "ready": false,
+  "title": {
+   "ru": "Склад",
+   "en": "Склад"
+  }
+ },
+ {
+  "id": "docs",
+  "order": 5,
+  "ready": false,
+  "title": {
+   "ru": "Документы и оплата",
+   "en": "Документы и оплата"
+  }
+ },
+ {
+  "id": "stats",
+  "order": 6,
+  "ready": false,
+  "title": {
+   "ru": "Статистика",
+   "en": "Статистика"
+  }
+ },
+ {
+  "id": "dashboard",
+  "order": 7,
+  "ready": false,
+  "title": {
+   "ru": "Главный экран",
+   "en": "Главный экран"
+  }
+ },
+ {
+  "id": "team",
+  "order": 8,
+  "ready": false,
+  "title": {
+   "ru": "Команда",
+   "en": "Команда"
+  }
+ },
+ {
+  "id": "settings",
+  "order": 9,
+  "ready": false,
+  "title": {
+   "ru": "Настройки",
+   "en": "Настройки"
+  }
+ },
+ {
+  "id": "plans",
+  "order": 10,
+  "ready": false,
+  "title": {
+   "ru": "Тарифы",
+   "en": "Тарифы"
+  }
+ },
+ {
+  "id": "security",
+  "order": 11,
+  "ready": false,
+  "title": {
+   "ru": "Данные и безопасность",
+   "en": "Данные и безопасность"
+  }
+ },
+ {
+  "id": "help",
+  "order": 12,
+  "ready": false,
+  "title": {
+   "ru": "Помощь и поддержка",
+   "en": "Помощь и поддержка"
+  }
+ }
+]
