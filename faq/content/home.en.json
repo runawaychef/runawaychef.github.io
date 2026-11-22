@@ -1,0 +1,56 @@
+{
+ "eyebrow": "Guide",
+ "title": "Simple Bake — bookkeeping for pastry makers and small bakeries",
+ "lead": "Orders, customers, recipes, inventory and documents in one app instead of a notebook, notes and spreadsheets.",
+ "tasksTitle": "What it helps with",
+ "tasks": [
+  {
+   "label": "Orders",
+   "text": "Take an order, set the date and items, see the status and payment."
+  },
+  {
+   "label": "Customers",
+   "text": "Contacts, discount, payment term, order history."
+  },
+  {
+   "label": "Menu and costing",
+   "text": "Products with a price and a recipe; the app calculates what one item costs you."
+  },
+  {
+   "label": "Inventory",
+   "text": "Ingredients, semi-finished items and packaging; products are written off by recipe when you take an order, and the app tells you what will run short."
+  },
+  {
+   "label": "Documents and payment",
+   "text": "Delivery note and invoice for the customer, payment marks, debts."
+  },
+  {
+   "label": "Analytics · Full",
+   "text": "Revenue, profit, best-selling products, a team of employees."
+  }
+ ],
+ "connectTitle": "How it all connects",
+ "connectText": "Customer → product in the menu → order. From the order, inventory and documents follow on their own: products are written off and the invoice is built from the items.",
+ "stepsTitle": "First steps (5 minutes)",
+ "steps": [
+  {
+   "title": "Add a customer",
+   "text": "“Customers” → “+” → type a name → “Save”."
+  },
+  {
+   "title": "Add a product",
+   "text": "“Menu” → “+” → name and “Sale price” → “Save”. You can add a recipe later."
+  },
+  {
+   "title": "Create an order",
+   "text": "“Orders” → “+” → choose a customer → add a product and quantity → “Save order”."
+  }
+ ],
+ "stepsNote": "Then add what you need: recipes and ingredient prices, and the app will calculate the cost.",
+ "plansTitle": "Plans",
+ "plansText": "Everything is open for the first 7 days. After that there is a free plan up to 50 orders, then Light and Full.",
+ "sectionsTitle": "Guide sections",
+ "newsTitle": "What's new",
+ "newsText": "Short notes on new features of the app.",
+ "newsBtn": "Open"
+}

@@ -5,11 +5,11 @@
   "ready": true,
   "title": {
    "ru": "Начало работы",
-   "en": "Начало работы"
+   "en": "Getting started"
   },
   "desc": {
    "ru": "Установка, регистрация, первый запуск, язык",
-   "en": "Установка, регистрация, первый запуск, язык"
+   "en": "Installation, sign-up, first launch, language"
   }
  },
  {
@@ -18,7 +18,11 @@
   "ready": false,
   "title": {
    "ru": "Клиенты",
-   "en": "Клиенты"
+   "en": "Customers"
+  },
+  "desc": {
+   "ru": "карточка клиента, скидка, срок оплаты, история заказов",
+   "en": "client card, discount, payment term, order history"
   }
  },
  {
@@ -27,7 +31,11 @@
   "ready": false,
   "title": {
    "ru": "Меню и себестоимость",
-   "en": "Меню и себестоимость"
+   "en": "Menu and costing"
+  },
+  "desc": {
+   "ru": "изделия, рецепты, расходы и расчёт себестоимости",
+   "en": "products, recipes, expenses and cost calculation"
   }
  },
  {
@@ -36,7 +44,11 @@
   "ready": false,
   "title": {
    "ru": "Заказы",
-   "en": "Заказы"
+   "en": "Orders"
+  },
+  "desc": {
+   "ru": "создание заказа, статусы, оплата, упаковка в заказе",
+   "en": "creating an order, statuses, payment, packaging in the order"
   }
  },
  {
@@ -45,7 +57,11 @@
   "ready": false,
   "title": {
    "ru": "Склад",
-   "en": "Склад"
+   "en": "Inventory"
+  },
+  "desc": {
+   "ru": "ингредиенты, полуфабрикаты, упаковка, списание и нехватка",
+   "en": "ingredients, semi-finished items, packaging, write-off and shortages"
   }
  },
  {
@@ -54,7 +70,11 @@
   "ready": false,
   "title": {
    "ru": "Документы и оплата",
-   "en": "Документы и оплата"
+   "en": "Documents and payment"
+  },
+  "desc": {
+   "ru": "накладная и счёт, НДС, отметка оплат, долги",
+   "en": "delivery note and invoice, VAT, marking payments, debts"
   }
  },
  {
@@ -63,7 +83,11 @@
   "ready": false,
   "title": {
    "ru": "Статистика",
-   "en": "Статистика"
+   "en": "Statistics"
+  },
+  "desc": {
+   "ru": "выручка, прибыль, лучшие изделия (тариф Full)",
+   "en": "revenue, profit, best products (Full plan)"
   }
  },
  {
@@ -72,7 +96,11 @@
   "ready": false,
   "title": {
    "ru": "Главный экран",
-   "en": "Главный экран"
+   "en": "Home screen"
+  },
+  "desc": {
+   "ru": "что показано на главном экране и как им пользоваться",
+   "en": "what the home screen shows and how to use it"
   }
  },
  {
@@ -81,7 +109,11 @@
   "ready": false,
   "title": {
    "ru": "Команда",
-   "en": "Команда"
+   "en": "Team"
+  },
+  "desc": {
+   "ru": "сотрудники, права доступа",
+   "en": "employees and access rights"
   }
  },
  {
@@ -90,7 +122,11 @@
   "ready": false,
   "title": {
    "ru": "Настройки",
-   "en": "Настройки"
+   "en": "Settings"
+  },
+  "desc": {
+   "ru": "компания, язык, уведомления, данные",
+   "en": "company, language, notifications, data"
   }
  },
  {
@@ -99,7 +135,11 @@
   "ready": false,
   "title": {
    "ru": "Тарифы",
-   "en": "Тарифы"
+   "en": "Plans"
+  },
+  "desc": {
+   "ru": "7 дней, Free, Light и Full; оплата и смена тарифа",
+   "en": "7 days, Free, Light and Full; payment and changing the plan"
   }
  },
  {
@@ -108,7 +148,11 @@
   "ready": false,
   "title": {
    "ru": "Данные и безопасность",
-   "en": "Данные и безопасность"
+   "en": "Data and security"
+  },
+  "desc": {
+   "ru": "где хранятся данные, удаление аккаунта, резервные копии",
+   "en": "where data is stored, account deletion, backups"
   }
  },
  {
@@ -117,7 +161,11 @@
   "ready": false,
   "title": {
    "ru": "Помощь и поддержка",
-   "en": "Помощь и поддержка"
+   "en": "Help and support"
+  },
+  "desc": {
+   "ru": "что делать, если что-то не работает, и как написать нам",
+   "en": "what to do if something does not work and how to contact us"
   }
  }
 ]

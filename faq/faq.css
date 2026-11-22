@@ -83,3 +83,7 @@ footer.bot .wrap{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-
 .embedbar a{text-decoration:none;color:var(--muted);padding:2px 0}
 .embedbar a[aria-current="page"]{color:var(--sage-dark);text-decoration:underline;text-underline-offset:4px}
 body.embed main{padding-top:14px}
+.seclinks a.soon,aside.side a.soon{color:var(--muted);font-weight:400}
+.soon-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;background:#f3e3c4;color:#8a6a24;padding:2px 6px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.stub{background:var(--sage-light);border-radius:12px;padding:14px 16px;margin:12px 0}
+.stub p{color:var(--ink);margin:0 0 8px}

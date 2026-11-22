@@ -1,0 +1,64 @@
+{
+ "items": [
+  {
+   "id": "what",
+   "q": "What Simple Bake is and who it is for",
+   "short": "An app for pastry makers and small bakeries: orders, customers, recipes and costing, inventory, documents and payment in one place.",
+   "plan": "Any",
+   "added": "929"
+  },
+  {
+   "id": "install",
+   "q": "How to install",
+   "short": "On Android: “Simple Bake” in Google Play. Or use the web version in a browser: simple-bake.com → “Open”.",
+   "where": "You can add the web version to your home screen from the browser menu.\nAndroid, Chrome: “⋮” → “Install app” (or “Add to Home screen”).\niPhone, Safari: “Share” → “Add to Home Screen”.",
+   "important": "There is no App Store app yet; on iPhone use the web version.",
+   "plan": "Any",
+   "added": "929"
+  },
+  {
+   "id": "signup",
+   "q": "How to sign up",
+   "short": "Two ways: “Sign in with Google”, or e-mail and password (“Don't have an account? Sign up”).",
+   "where": "Sign-in screen → “Sign in with Google”; or enter your e-mail and a password (at least 6 characters) → “Sign up”.",
+   "important": "With e-mail you will get a confirmation message: you cannot sign in until the e-mail is confirmed. The message is currently in English; check “Spam”. With Google no confirmation is needed. If the e-mail is already registered, the app will suggest signing in or resetting the password.",
+   "plan": "Any. Everything is open for the first 7 days",
+   "added": "929"
+  },
+  {
+   "id": "login",
+   "q": "How to sign in and what to do if you forgot the password",
+   "short": "On the sign-in screen enter your e-mail and password → “Sign in”.",
+   "where": "Forgot the password: “Forgot password?” → enter your e-mail → “Send reset email” → follow the link in the message → “New password” (at least 6 characters, different from the old one) → “Save password”.",
+   "important": "The link in the message can expire: then request a new one. Signing in with Google: choose the same Google account you signed up with.",
+   "plan": "Any",
+   "added": "929"
+  },
+  {
+   "id": "first",
+   "q": "First launch: “Welcome!” and the app tour",
+   "short": "At first sign-in the app asks for your bakery name (you can change it later in settings) → “Get Started”. Then it offers “Take a quick tour?” — “Take the tour” or “Skip”.",
+   "where": "The tour has 9 steps: home screen, orders, payment and documents, menu, inventory, customers, statistics, plans. You can repeat it in Settings → “App tour”.\nTo remove the sample data (only the samples are deleted, your own data is not touched):\n— the “These are examples” banner on the home screen → “Delete”;\n— at the end of the tour → “Delete examples”;\n— Settings → “Delete Demo Data and Start Over” (visible to the owner only, while samples exist).",
+   "important": "If you did not load samples: Settings → “Load Demo Data” (only for an empty organization). After the first launch you get a welcome e-mail; replies go to support.",
+   "plan": "Any",
+   "added": "929"
+  },
+  {
+   "id": "lang",
+   "q": "How to change the language",
+   "short": "The language is chosen once at first launch from your phone language: if the app has it, it is used, otherwise English.",
+   "where": "Settings → “Language” → pick a language: English, Русский, Lietuvių, Українська.",
+   "important": "Lithuanian and Ukrainian are marked “Draft”: the translation has not yet been checked by a native speaker. There is no language choice on the sign-in screen. If your phone is set to Polish or German, the interface will be in English. The language of documents and e-mails to customers is chosen separately when sending.",
+   "plan": "Any",
+   "added": "929"
+  },
+  {
+   "id": "mail",
+   "q": "E-mail did not arrive / how to contact support",
+   "short": "Check “Spam”. The confirmation message is needed only when signing up with e-mail; the welcome message arrives once and does not affect your work.",
+   "important": "If there is no message, sign up again with the correct e-mail or write to simplebake.support@gmail.com (you can reply to the welcome message).",
+   "plan": "Any",
+   "added": "929"
+  }
+ ]
+}

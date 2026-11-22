@@ -6,10 +6,10 @@ var BASE='/faq/';
 var LANGS=['ru','en','lt','uk'];
 var EMBED=/[?&]embed=1(&|$|#)/.test(location.search);
 var UI={
-ru:{guide:'Инструкция',news:'Что нового',support:'Поддержка',all:'Разделы',searchLabel:'Поиск по инструкции',searchPh:'Например: как установить приложение',start:'Начать за 5 минут',found:'Найдено',nothing:'Ничего не найдено. Напишите нам, и мы добавим ответ.',short:'Коротко.',where:'Где нажать.',important:'Важно.',plan:'Тариф',added:'Добавлено: сборка',updated:'Обновлено: сборка',noAnswer:'Не нашли ответ? Напишите нам:',build:'Актуально для сборки',notReady:'Этот раздел ещё готовится.',home:'На главную инструкции',newsLead:'Короткие записи о том, что появилось в программе. Обновите приложение, и новое будет на месте.',newsRead:'Читать:',build2:'Сборка',notice:'',sections:'РАЗДЕЛЫ',crumb:'Инструкция'},
-en:{guide:'Guide',news:"What's new",support:'Support',all:'Sections',searchLabel:'Search the guide',searchPh:'For example: how to install the app',start:'Start in 5 minutes',found:'Found',nothing:'Nothing found. Write to us and we will add an answer.',short:'In short.',where:'Where to tap.',important:'Good to know.',plan:'Plan',added:'Added: build',updated:'Updated: build',noAnswer:"Can't find the answer? Write to us:",build:'Current for build',notReady:'This section is being prepared.',home:'Back to the guide',newsLead:'Short notes on what has appeared in the app. Update the app and the new features will be there.',newsRead:'Read:',build2:'Build',notice:'The guide is currently available in Russian only; translations are coming. Interface language follows your choice.',sections:'SECTIONS',crumb:'Guide'}
+ru:{guide:'Инструкция',news:'Что нового',support:'Поддержка',all:'Разделы',searchLabel:'Поиск по инструкции',searchPh:'Например: как установить приложение',start:'Начать за 5 минут',found:'Найдено',nothing:'Ничего не найдено. Напишите нам, и мы добавим ответ.',short:'Коротко.',where:'Где нажать.',important:'Важно.',plan:'Тариф',added:'Добавлено: сборка',updated:'Обновлено: сборка',noAnswer:'Не нашли ответ? Напишите нам:',build:'Актуально для сборки',notReady:'Этот раздел ещё готовится.',home:'На главную инструкции',newsLead:'Короткие записи о том, что появилось в программе. Обновите приложение, и новое будет на месте.',newsRead:'Читать:',build2:'Сборка',notice:'',sections:'РАЗДЕЛЫ',crumb:'Инструкция',soon:'Скоро',stubLead:'Раздел готовится. Скоро здесь появится информация:',stubBack:'К оглавлению'},
+en:{guide:'Guide',news:"What's new",support:'Support',all:'Sections',searchLabel:'Search the guide',searchPh:'For example: how to install the app',start:'Start in 5 minutes',found:'Found',nothing:'Nothing found. Write to us and we will add an answer.',short:'In short.',where:'Where to tap.',important:'Good to know.',plan:'Plan',added:'Added: build',updated:'Updated: build',noAnswer:"Can't find the answer? Write to us:",build:'Current for build',notReady:'This section is being prepared.',home:'Back to the guide',newsLead:'Short notes on what has appeared in the app. Update the app and the new features will be there.',newsRead:'Read:',build2:'Build',notice:'The guide is shown in English for now; a translation into your language is coming.',sections:'SECTIONS',crumb:'Guide',soon:'Soon',stubLead:'This section is being prepared. Coming soon:',stubBack:'Back to the guide'}
 };
-var BUILD='929';
+var BUILD='934';
 var SUPPORT='simplebake.support@gmail.com';
 function qs(n){var m=new RegExp('[?&]'+n+'=([^&#]*)').exec(location.search);return m?decodeURIComponent(m[1]):null}
 function getLang(){
@@ -56,14 +56,18 @@ function footer(){
  if(EMBED)return '';
  return '<footer class="bot"><div class="wrap"><span>'+T.noAnswer+' <a href="mailto:'+SUPPORT+'"'+(EMBED?' target="_top"':'')+'>'+SUPPORT+'</a></span><span>'+T.build+' '+BUILD+'</span></div></footer>';
 }
-function notice(){return LANG==='ru'?'':'<p class="notice">'+esc(UI.en.notice)+'</p>'}
+function notice(){return (LANG==='lt'||LANG==='uk')?'<p class="notice">'+esc(UI.en.notice)+'</p>':''}
 function shell(active,inner){
  document.documentElement.lang=LANG;
  document.getElementById('app').innerHTML=header(active)+'<main><div class="wrap">'+notice()+inner+'</div></main>'+footer();
  bindLang();
 }
 function readySections(list){return list.filter(function(s){return s.ready}).sort(function(a,b){return (a.order||0)-(b.order||0)})}
-function loadSection(id){return getJSON(BASE+'content/'+id+'.ru.json')}
+var CL=LANG==='ru'?'ru':'en';
+function loadContent(name){return getJSON(BASE+'content/'+name+'.'+CL+'.json').catch(function(){return getJSON(BASE+'content/'+name+'.'+(CL==='ru'?'en':'ru')+'.json')})}
+function loadSection(id){return loadContent(id)}
+function allSections(list){return list.slice().sort(function(a,b){return (a.order||0)-(b.order||0)})}
+function secLink(s){return link(BASE+'section/','s='+encodeURIComponent(s.id))}
 function itemHTML(it){
  var h='<details class="item" id="i-'+esc(it.id)+'"><summary><span>'+esc(it.q)+'</span><span class="plus" aria-hidden="true">+</span></summary><div class="body">';
  h+='<p><strong>'+T.short+'</strong> '+multi(it.short)+'</p>';
@@ -77,7 +81,7 @@ function itemHTML(it){
 }
 /* ---------- главная ---------- */
 function pageHome(){
- Promise.all([getJSON(BASE+'content/home.ru.json'),getJSON(BASE+'content/sections.json')]).then(function(r){
+ Promise.all([loadContent('home'),getJSON(BASE+'content/sections.json')]).then(function(r){
   var H=r[0],secs=readySections(r[1]);
   var h='<p class="eyebrow">'+esc(H.eyebrow)+'</p><h1>'+esc(H.title)+'</h1><p class="lead">'+esc(H.lead)+'</p>';
   h+='<div class="searchrow"><label for="q" style="position:absolute;left:-9999px">'+T.searchLabel+'</label><input id="q" type="search" placeholder="'+esc(T.searchPh)+'" autocomplete="off"><a class="btn" href="#steps">'+T.start+'</a></div><div id="results" class="results" aria-live="polite"></div>';
@@ -90,7 +94,7 @@ function pageHome(){
   h+='</div><p class="note">'+esc(H.stepsNote)+'</p></section>';
   h+='<section class="block"><h2>'+esc(H.plansTitle)+'</h2><p class="lead" style="margin:0">'+esc(H.plansText)+'</p></section>';
   h+='<section class="block"><h2>'+esc(H.sectionsTitle)+'</h2><div class="seclinks">';
-  secs.forEach(function(s){h+='<a href="'+link(BASE+'section/','s='+encodeURIComponent(s.id))+'">'+esc(tx(s.title))+'</a>'});
+  allSections(r[1]).forEach(function(s){h+='<a href="'+secLink(s)+'"'+(s.ready?'':' class="soon"')+'>'+esc(tx(s.title))+(s.ready?'':' <span class="soon-tag">'+T.soon+'</span>')+'</a>'});
   h+='</div></section>';
   h+='<div class="newsbar"><div><strong>'+esc(H.newsTitle)+'</strong><div class="meta">'+esc(H.newsText)+'</div></div><a class="btn ghost" href="'+link(BASE+'news/')+'">'+esc(H.newsBtn)+'</a></div>';
   shell('guide',h);
@@ -120,15 +124,22 @@ function setupSearch(secs){
 function pageSection(){
  var id=qs('s');
  getJSON(BASE+'content/sections.json').then(function(list){
-  var secs=readySections(list),cur=secs.filter(function(s){return s.id===id})[0];
-  var side='<aside class="side"><div class="lbl">'+T.sections+'</div><nav aria-label="'+T.sections+'">'+secs.map(function(s){return '<a href="'+link(BASE+'section/','s='+encodeURIComponent(s.id))+'"'+(cur&&s.id===cur.id?' aria-current="page"':'')+'>'+esc(tx(s.title))+'</a>'}).join('')+'</nav></aside>';
+  var all=allSections(list),cur=all.filter(function(s){return s.id===id})[0];
+  var side='<aside class="side"><div class="lbl">'+T.sections+'</div><nav aria-label="'+T.sections+'">'+all.map(function(s){return '<a href="'+secLink(s)+'"'+(cur&&s.id===cur.id?' aria-current="page"':'')+(s.ready?'':' class="soon"')+'>'+esc(tx(s.title))+'</a>'}).join('')+'</nav></aside>';
+  var help='<div class="help">'+T.noAnswer+' <a href="mailto:'+SUPPORT+'"'+(EMBED?' target="_top"':'')+'>'+SUPPORT+'</a></div>';
   if(!cur){shell('guide','<div class="layout">'+side+'<div class="content"><h1>'+T.notReady+'</h1><p><a href="'+link(BASE)+'">'+T.home+'</a></p></div></div>');return}
+  document.title=tx(cur.title)+' — Simple Bake';
+  var head='<p class="crumbs">'+T.crumb+' / '+esc(tx(cur.title))+'</p><h1>'+esc(tx(cur.title))+'</h1>';
+  if(!cur.ready){
+   shell('guide','<div class="layout">'+side+'<div class="content">'+head+'<div class="stub"><p><strong>'+T.stubLead+'</strong></p>'+(cur.desc?'<p>'+esc(tx(cur.desc))+'</p>':'')+'<p><a href="'+link(BASE)+'">'+T.stubBack+'</a></p></div>'+(EMBED?help:'')+'</div></div>');
+   return;
+  }
   return loadSection(cur.id).then(function(c){
-   document.title=tx(cur.title)+' — Simple Bake';
-   var h='<div class="layout">'+side+'<div class="content"><p class="crumbs">'+T.crumb+' / '+esc(tx(cur.title))+'</p><h1>'+esc(tx(cur.title))+'</h1>';
+   var h='<div class="layout">'+side+'<div class="content">'+head;
    if(cur.desc)h+='<p class="lead">'+esc(tx(cur.desc))+'</p>';
    h+=(c.items||[]).map(itemHTML).join('');
-   if(EMBED)h+='<div class="help">'+T.noAnswer+' <a href="mailto:'+SUPPORT+'"'+(EMBED?' target="_top"':'')+'>'+SUPPORT+'</a></div></div></div>';
+   if(EMBED)h+=help;
+   h+='</div></div>';
    shell('guide',h);
    var m=/^#i-(.+)$/.exec(location.hash);
    if(m){var el=document.getElementById('i-'+m[1]);if(el){el.open=true;el.scrollIntoView()}}
@@ -143,7 +154,7 @@ function pageNews(){
   r[0].forEach(function(day){
    h+='<h2 class="news-day">'+esc(tx(day.date))+'</h2>';
    day.items.forEach(function(e){
-    h+='<article class="entry"><span class="meta">'+T.build2+' '+esc(e.build)+'</span>'+(e.tag?'<span class="badge">'+esc(e.tag)+'</span>':'')+'<h3>'+esc(e.title)+'</h3><p>'+esc(e.text)+'</p>';
+    h+='<article class="entry"><span class="meta">'+T.build2+' '+esc(e.build)+'</span>'+(e.tag?'<span class="badge">'+esc(tx(e.tag))+'</span>':'')+'<h3>'+esc(tx(e.title))+'</h3><p>'+esc(tx(e.text))+'</p>';
     if(e.section&&ready[e.section])h+='<a href="'+link(BASE+'section/','s='+encodeURIComponent(e.section))+'">'+T.newsRead+' '+esc(tx(ready[e.section].title))+'</a>';
     h+='</article>';
    });

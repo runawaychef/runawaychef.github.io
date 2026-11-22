@@ -1,12 +1,63 @@
 [
  {
-  "date": "21 ноября 2026",
+  "date": {
+   "ru": "22 ноября 2026",
+   "en": "22 November 2026"
+  },
   "items": [
    {
-    "build": "929",
-    "tag": "Инструкция",
-    "title": "Запущена новая инструкция",
-    "text": "Раздел «Начало работы» уже готов, остальные разделы появятся по мере готовности.",
+    "build": "934",
+    "tag": {
+     "ru": "Документы",
+     "en": "Documents"
+    },
+    "title": {
+     "ru": "НДС только для плательщиков",
+     "en": "VAT only for VAT payers"
+    },
+    "text": {
+     "ru": "Если в «Настройки → Компания» снята галка «Плательщик НДС», в карточке заказа и в сводке клиента больше нет строки НДС; счета и накладные печатаются без НДС.",
+     "en": "If “VAT payer” is switched off in Settings → Company, the order card and the customer summary no longer show a VAT line; invoices and delivery notes are printed without VAT."
+    }
+   }
+  ]
+ },
+ {
+  "date": {
+   "ru": "21 ноября 2026",
+   "en": "21 November 2026"
+  },
+  "items": [
+   {
+    "build": "932",
+    "tag": {
+     "ru": "Инструкция",
+     "en": "Guide"
+    },
+    "title": {
+     "ru": "Инструкция открывается из приложения",
+     "en": "The guide opens from the app"
+    },
+    "text": {
+     "ru": "Строка «Частые вопросы» в Настройках теперь открывает эту инструкцию. Раздел «Начало работы» уже готов, остальные появятся по мере готовности.",
+     "en": "The “FAQ” row in Settings now opens this guide. “Getting started” is ready; the other sections will appear as they are finished."
+    },
+    "section": "start"
+   },
+   {
+    "build": "932",
+    "tag": {
+     "ru": "Тур",
+     "en": "Tour"
+    },
+    "title": {
+     "ru": "Тур по приложению",
+     "en": "App tour"
+    },
+    "text": {
+     "ru": "Кнопка тура в Настройках теперь называется «Тур по приложению»: там можно повторить знакомство с программой.",
+     "en": "The tour button in Settings is now called “App tour”: you can repeat the introduction there."
+    },
     "section": "start"
    }
   ]
