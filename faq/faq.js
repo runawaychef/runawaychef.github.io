@@ -9,7 +9,7 @@ var UI={
 ru:{guide:'Инструкция',news:'Что нового',support:'Поддержка',all:'Разделы',searchLabel:'Поиск по инструкции',searchPh:'Например: как установить приложение',start:'Начать за 5 минут',found:'Найдено',nothing:'Ничего не найдено. Напишите нам, и мы добавим ответ.',short:'Коротко.',where:'Где нажать.',important:'Важно.',plan:'Тариф',added:'Добавлено: сборка',updated:'Обновлено: сборка',noAnswer:'Не нашли ответ? Напишите нам:',build:'Актуально для сборки',notReady:'Этот раздел ещё готовится.',home:'На главную инструкции',newsLead:'Короткие записи о том, что появилось в программе. Обновите приложение, и новое будет на месте.',newsRead:'Читать:',build2:'Сборка',notice:'',sections:'РАЗДЕЛЫ',crumb:'Инструкция',soon:'Скоро',stubLead:'Раздел готовится. Скоро здесь появится информация:',stubBack:'К оглавлению'},
 en:{guide:'Guide',news:"What's new",support:'Support',all:'Sections',searchLabel:'Search the guide',searchPh:'For example: how to install the app',start:'Start in 5 minutes',found:'Found',nothing:'Nothing found. Write to us and we will add an answer.',short:'In short.',where:'Where to tap.',important:'Good to know.',plan:'Plan',added:'Added: build',updated:'Updated: build',noAnswer:"Can't find the answer? Write to us:",build:'Current for build',notReady:'This section is being prepared.',home:'Back to the guide',newsLead:'Short notes on what has appeared in the app. Update the app and the new features will be there.',newsRead:'Read:',build2:'Build',notice:'The guide is shown in English for now; a translation into your language is coming.',sections:'SECTIONS',crumb:'Guide',soon:'Soon',stubLead:'This section is being prepared. Coming soon:',stubBack:'Back to the guide'}
 };
-var BUILD='934';
+var BUILD='938';
 var SUPPORT='simplebake.support@gmail.com';
 function qs(n){var m=new RegExp('[?&]'+n+'=([^&#]*)').exec(location.search);return m?decodeURIComponent(m[1]):null}
 function getLang(){
@@ -37,6 +37,17 @@ function langSwitch(){
   out+='<a class="lang-item'+(sel?' selected':'')+'" href="'+esc(location.pathname+u+location.hash)+'"><span>'+m.n+' <span class="lang-hint">'+m.e+'</span>'+(m.d?'<span class="lang-draft">'+(LANG==='ru'?'Черновик':'Draft')+'</span>':'')+'</span>'+(sel?'<svg class="lang-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>':'')+'</a>';
  });
  return out+'</div></div>';
+}
+function bindShots(){
+ document.addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('.shot-btn');
+  if(!b)return;
+  var o=document.createElement('div');o.className='lightbox';o.setAttribute('role','dialog');o.setAttribute('aria-label',b.getAttribute('data-alt')||'');
+  o.innerHTML='<img src="'+b.getAttribute('data-full')+'" alt="'+(b.getAttribute('data-alt')||'')+'">';
+  function close(){o.remove();document.removeEventListener('keydown',key)}
+  function key(ev){if(ev.key==='Escape')close()}
+  o.addEventListener('click',close);document.addEventListener('keydown',key);document.body.appendChild(o);
+ });
 }
 function bindLang(){
  var w=document.getElementById('langs');if(!w)return;
@@ -70,9 +81,16 @@ function allSections(list){return list.slice().sort(function(a,b){return (a.orde
 function secLink(s){return link(BASE+'section/','s='+encodeURIComponent(s.id))}
 function itemHTML(it){
  var h='<details class="item" id="i-'+esc(it.id)+'"><summary><span>'+esc(it.q)+'</span><span class="plus" aria-hidden="true">+</span></summary><div class="body">';
- h+='<p><strong>'+T.short+'</strong> '+multi(it.short)+'</p>';
- if(it.where)h+='<p><strong>'+T.where+'</strong> '+multi(it.where)+'</p>';
- if(it.important)h+='<p><strong>'+T.important+'</strong> '+multi(it.important)+'</p>';
+ function lab(l,t){return '<p><strong>'+l+'</strong>'+(t.indexOf('\n')>-1?'<br>':' ')+multi(t)+'</p>'}
+ h+=lab(T.short,it.short);
+ if(it.where)h+=lab(T.where,it.where);
+ if(it.important)h+=lab(T.important,it.important);
+ if(it.shots&&it.shots.length){
+  h+='<div class="shots">'+it.shots.map(function(s){
+   var src=BASE+'img/'+s.id+'.'+CL+'.webp',alt=esc(tx(s.alt)||tx(s.caption));
+   return '<figure class="shot"><button type="button" class="shot-btn" data-full="'+esc(src)+'" data-alt="'+alt+'" aria-label="'+alt+'"><img src="'+esc(src)+'" alt="'+alt+'" loading="lazy" width="260"></button>'+(s.caption?'<figcaption>'+esc(tx(s.caption))+'</figcaption>':'')+'</figure>';
+  }).join('')+'</div>';
+ }
  h+='<div class="chips">';
  if(it.plan)h+='<span class="chip">'+T.plan+': '+esc(it.plan)+'</span>';
  var meta=[];if(it.added)meta.push(T.added+' '+esc(it.added));if(it.updated)meta.push(T.updated+' '+esc(it.updated));
@@ -91,7 +109,7 @@ function pageHome(){
   h+='<section class="block"><h2>'+esc(H.connectTitle)+'</h2><p class="lead" style="margin:0">'+esc(H.connectText)+'</p></section>';
   h+='<section class="block" id="steps"><h2>'+esc(H.stepsTitle)+'</h2><div class="cards">';
   H.steps.forEach(function(s,i){h+='<div class="step"><div class="n">'+(i+1)+'</div><h3>'+esc(s.title)+'</h3><p>'+esc(s.text)+'</p></div>'});
-  h+='</div><p class="note">'+esc(H.stepsNote)+'</p></section>';
+  h+='</div><p class="note">'+esc(H.stepsNote)+(H.stepsMore?' <a href="'+link(BASE+'section/','s=quickstart')+'">'+esc(H.stepsMore)+' →</a>':'')+'</p></section>';
   h+='<section class="block"><h2>'+esc(H.plansTitle)+'</h2><p class="lead" style="margin:0">'+esc(H.plansText)+'</p></section>';
   h+='<section class="block"><h2>'+esc(H.sectionsTitle)+'</h2><div class="seclinks">';
   allSections(r[1]).forEach(function(s){h+='<a href="'+secLink(s)+'"'+(s.ready?'':' class="soon"')+'>'+esc(tx(s.title))+(s.ready?'':' <span class="soon-tag">'+T.soon+'</span>')+'</a>'});
@@ -167,6 +185,7 @@ function fail(){
  document.getElementById('app').innerHTML=header('guide')+'<main><div class="wrap"><h1>'+T.notReady+'</h1><p><a href="'+link(BASE)+'">'+T.home+'</a></p></div></main>'+footer();bindLang();
 }
 if(EMBED)document.body.classList.add('embed');
+bindShots();
 var pg=document.body.getAttribute('data-page');
 if(pg==='home')pageHome();else if(pg==='section')pageSection();else if(pg==='news')pageNews();
 })();

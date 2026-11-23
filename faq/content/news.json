@@ -6,6 +6,22 @@
   },
   "items": [
    {
+    "build": "938",
+    "tag": {
+     "ru": "Заказы",
+     "en": "Orders"
+    },
+    "title": {
+     "ru": "«Упаковка заказа» раскрывается по нажатию",
+     "en": "“Order packaging” opens on tap"
+    },
+    "text": {
+     "ru": "В карточке заказа блок «Упаковка заказа» теперь виден всегда: нажмите на него, чтобы раскрыть таблицу (упаковка, количество, цена, итого). Строки с ценой 0 серые. Значок вкладки «Меню» теперь корзина.",
+     "en": "In the order card the “Order packaging” block is now always visible: tap it to open the table (packaging, quantity, price, total). Rows with a price of 0 are gray. The “Menu” tab icon is now a basket."
+    },
+    "section": "quickstart"
+   },
+   {
     "build": "934",
     "tag": {
      "ru": "Документы",

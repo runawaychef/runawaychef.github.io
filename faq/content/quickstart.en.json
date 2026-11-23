@@ -1,0 +1,31 @@
+{
+ "items": [
+  {
+   "id": "step1",
+   "q": "Step 1. How to add a customer",
+   "short": "An order in Simple Bake is always made for a customer, so we start there. Only the name is required.",
+   "where": "1. Bottom menu → “Customers”.\n2. The green “+”.\n3. Enter the “Name”. It must not repeat another customer’s name: the app warns you if it already exists.\n4. “Legal entity type (for invoices)”: “Individual” (the default) or “Company”.\n5. Optional: “Preferred contact method”, Email, “Discount (%)”, “Notes” (allergies, special conditions).\n6. “Save” (at the top of the card).",
+   "important": "— The discount is filled into this customer’s orders automatically; you can change it in the order.\n— If you leave without saving, the app asks “This new card hasn't been saved. Save what you entered?”: “Save” / “Don't save” / “Stay”. An empty card closes without a question.\n— The “Details and VAT” block (address, registration number, VAT code, “Payment term, days”) is needed for invoices to companies; you can fill it in later. If no term is set, companies pay in 7 days and individuals on the order day.\n— You can also add a customer right from an order with “+ New customer”.",
+   "plan": "Any",
+   "added": "938"
+  },
+  {
+   "id": "step2",
+   "q": "Step 2. How to add a product to the menu",
+   "short": "An order needs at least one product with a price. You can add the recipe later.",
+   "where": "1. Bottom menu → “Menu” → the green “+”.\n2. Enter the “Name”.\n3. “Sold by”: “per piece (pcs)” or “by weight (kg)”.\n4. Enter the “Sale price”.\n5. “Save”. After that the card opens the recipe and cost. A photo is optional.",
+   "important": "— You can leave the recipe for later. An order can be created without it, but the cost and profit for this product will be wrong until the recipe is filled in.\n— The recipe is set per batch: ingredients and semi-finished items with quantities, “Batch Size” (how many products one batch makes) and “Other costs” (packaging, label, energy, delivery or your own item). Cost of one product = batch cost ÷ batch size. It recalculates by itself when product prices change.\n— Cost is shown on all plans; profit, margin and the cost-trend chart on the Full plan.\n— If you leave without saving, the app asks whether to save what you entered (as with a customer).",
+   "plan": "Any; profit and margin Full",
+   "added": "938"
+  },
+  {
+   "id": "step3",
+   "q": "Step 3. How to create your first order",
+   "short": "Now you have a customer and a product with a price, so you can make an order. Only the customer is required.",
+   "where": "1. Bottom menu → “Orders” → the green “+”. A new card opens. Until you save it, it is a draft: it has no number and only you can see it.\n2. “Customer”: choose from the list or start typing a name. No customer yet: “+ New customer” right here. The customer’s discount is filled in automatically; you can change it for this order.\n3. Check the “Date” (today by default). The rest is optional: “Status”, “Staff”, “Discount (%)”, “Order Notes”. “Pay by” is filled in automatically.\n4. In “Order Items”, in the “— Select Item —” row, choose a product. The price comes from the menu (you can change it in the order; the menu stays the same). Enter the quantity (in kg for products sold by weight) and tap “+ Add”. At the bottom you see “Items Total”, the discount and “Total due”, and a VAT line if you are a VAT payer.\n5. “Save order” (at the bottom). The order gets a number and becomes visible to your staff.",
+   "important": "— Ingredients are written off from stock by the recipe as soon as you add an item. If you delete or replace the item, they are returned. The product must have a recipe for this.\n— Need packaging? Under the items, tap the “Order packaging” row to open it: choose packaging from stock (it is created in Inventory, the “Packaging” tab), the quantity and the price → “+ Add”. A price above 0 goes onto the invoice as a separate line; a price of 0 (the row turns gray) is only written off from stock.\n— On the Full plan, if there are not enough ingredients, saving shows “Not enough ingredients” with “Save anyway” and “Back”.\n— You can save an order without items (for example, taken by phone).",
+   "plan": "Any; shortage warning Full",
+   "added": "938"
+  }
+ ]
+}

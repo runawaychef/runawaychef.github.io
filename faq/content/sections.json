@@ -13,8 +13,21 @@
   }
  },
  {
-  "id": "clients",
+  "id": "quickstart",
   "order": 1,
+  "ready": true,
+  "title": {
+   "ru": "Как начать",
+   "en": "Quick start"
+  },
+  "desc": {
+   "ru": "первый клиент, первое изделие, первый заказ",
+   "en": "your first customer, product and order"
+  }
+ },
+ {
+  "id": "clients",
+  "order": 2,
   "ready": false,
   "title": {
    "ru": "Клиенты",
@@ -27,7 +40,7 @@
  },
  {
   "id": "menu",
-  "order": 2,
+  "order": 3,
   "ready": false,
   "title": {
    "ru": "Меню и себестоимость",
@@ -40,7 +53,7 @@
  },
  {
   "id": "orders",
-  "order": 3,
+  "order": 4,
   "ready": false,
   "title": {
    "ru": "Заказы",
@@ -53,7 +66,7 @@
  },
  {
   "id": "stock",
-  "order": 4,
+  "order": 5,
   "ready": false,
   "title": {
    "ru": "Склад",
@@ -66,7 +79,7 @@
  },
  {
   "id": "docs",
-  "order": 5,
+  "order": 6,
   "ready": false,
   "title": {
    "ru": "Документы и оплата",
@@ -79,7 +92,7 @@
  },
  {
   "id": "stats",
-  "order": 6,
+  "order": 7,
   "ready": false,
   "title": {
    "ru": "Статистика",
@@ -92,7 +105,7 @@
  },
  {
   "id": "dashboard",
-  "order": 7,
+  "order": 8,
   "ready": false,
   "title": {
    "ru": "Главный экран",
@@ -105,7 +118,7 @@
  },
  {
   "id": "team",
-  "order": 8,
+  "order": 9,
   "ready": false,
   "title": {
    "ru": "Команда",
@@ -118,7 +131,7 @@
  },
  {
   "id": "settings",
-  "order": 9,
+  "order": 10,
   "ready": false,
   "title": {
    "ru": "Настройки",
@@ -131,7 +144,7 @@
  },
  {
   "id": "plans",
-  "order": 10,
+  "order": 11,
   "ready": false,
   "title": {
    "ru": "Тарифы",
@@ -144,7 +157,7 @@
  },
  {
   "id": "security",
-  "order": 11,
+  "order": 12,
   "ready": false,
   "title": {
    "ru": "Данные и безопасность",
@@ -157,7 +170,7 @@
  },
  {
   "id": "help",
-  "order": 12,
+  "order": 13,
   "ready": false,
   "title": {
    "ru": "Помощь и поддержка",
