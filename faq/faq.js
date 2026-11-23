@@ -61,7 +61,7 @@ function header(active){
  return '<header class="top"><div class="wrap"><a class="wordmark" href="/">Simple Bake</a><nav class="main" aria-label="Main">'+
  '<a href="'+link(BASE)+'"'+(active==='guide'?' aria-current="page"':'')+'>'+T.guide+'</a>'+
  '<a href="'+link(BASE+'news/')+'"'+(active==='news'?' aria-current="page"':'')+'>'+T.news+'</a>'+
- '<a href="mailto:'+SUPPORT+'"'+(EMBED?' target="_top"':'')+'>'+T.support+'</a></nav>'+langSwitch()+'</div></header>';
+ '</nav>'+langSwitch()+'</div></header>';
 }
 function footer(){
  if(EMBED)return '';
