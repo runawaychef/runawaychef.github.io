@@ -7,19 +7,7 @@
    "where": "1. Bottom menu → “Customers”.\n2. The green “+”.\n3. Enter the “Name”. It must not repeat another customer’s name: the app warns you if it already exists.\n4. “Legal entity type (for invoices)”: “Individual” (the default) or “Company”.\n5. Optional: “Preferred contact method”, Email, “Discount (%)”, “Notes” (allergies, special conditions).\n6. “Save” (at the top of the card).",
    "important": "— The discount is filled into this customer’s orders automatically; you can change it in the order.\n— If you leave without saving, the app asks “This new card hasn't been saved. Save what you entered?”: “Save” / “Don't save” / “Stay”. An empty card closes without a question.\n— The “Details and VAT” block (address, registration number, VAT code, “Payment term, days”) is needed for invoices to companies; you can fill it in later. If no term is set, companies pay in 7 days and individuals on the order day.\n— You can also add a customer right from an order with “+ New customer”.",
    "plan": "Any",
-   "added": "938",
-   "shots": [
-    {
-     "id": "step1-list",
-     "alt": "Customers tab and the green plus button",
-     "caption": "1–2: open Customers and tap the green «+»"
-    },
-    {
-     "id": "step1-card",
-     "alt": "New customer card with numbered fields",
-     "caption": "3–6: fill in the fields and tap Save"
-    }
-   ]
+   "added": "938"
   },
   {
    "id": "step2",
@@ -28,19 +16,7 @@
    "where": "1. Bottom menu → “Menu” → the green “+”.\n2. Enter the “Name”.\n3. “Sold by”: “per piece (pcs)” or “by weight (kg)”.\n4. Enter the “Sale price”.\n5. “Save”. After that the card opens the recipe and cost. A photo is optional.",
    "important": "— You can leave the recipe for later. An order can be created without it, but the cost and profit for this product will be wrong until the recipe is filled in.\n— The recipe is set per batch: ingredients and semi-finished items with quantities, “Batch Size” (how many products one batch makes) and “Other costs” (packaging, label, energy, delivery or your own item). Cost of one product = batch cost ÷ batch size. It recalculates by itself when product prices change.\n— Cost is shown on all plans; profit, margin and the cost-trend chart on the Full plan.\n— If you leave without saving, the app asks whether to save what you entered (as with a customer).",
    "plan": "Any; profit and margin Full",
-   "added": "938",
-   "shots": [
-    {
-     "id": "step2-list",
-     "alt": "Menu tab and the green plus button",
-     "caption": "1: open Menu and tap the green «+»"
-    },
-    {
-     "id": "step2-card",
-     "alt": "New menu item card with numbered fields",
-     "caption": "2–5: name, how it is sold, price, then Save"
-    }
-   ]
+   "added": "938"
   },
   {
    "id": "step3",
