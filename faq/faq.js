@@ -6,8 +6,8 @@ var BASE='/faq/';
 var LANGS=['ru','en','lt','uk'];
 var EMBED=/[?&]embed=1(&|$|#)/.test(location.search);
 var UI={
-ru:{guide:'Инструкция',news:'Что нового',support:'Поддержка',all:'Разделы',searchLabel:'Поиск по инструкции',searchPh:'Например: как установить приложение',start:'Начать за 5 минут',found:'Найдено',nothing:'Ничего не найдено. Напишите нам, и мы добавим ответ.',short:'Коротко.',where:'Где нажать.',important:'Важно.',plan:'Тариф',added:'Добавлено: сборка',updated:'Обновлено: сборка',noAnswer:'Не нашли ответ? Напишите нам:',build:'Актуально для сборки',notReady:'Этот раздел ещё готовится.',home:'На главную инструкции',newsLead:'Короткие записи о том, что появилось в программе. Обновите приложение, и новое будет на месте.',newsRead:'Читать:',build2:'Сборка',notice:'',sections:'РАЗДЕЛЫ',crumb:'Инструкция',soon:'Скоро',stubLead:'Раздел готовится. Скоро здесь появится информация:',stubBack:'К оглавлению'},
-en:{guide:'Guide',news:"What's new",support:'Support',all:'Sections',searchLabel:'Search the guide',searchPh:'For example: how to install the app',start:'Start in 5 minutes',found:'Found',nothing:'Nothing found. Write to us and we will add an answer.',short:'In short.',where:'Where to tap.',important:'Good to know.',plan:'Plan',added:'Added: build',updated:'Updated: build',noAnswer:"Can't find the answer? Write to us:",build:'Current for build',notReady:'This section is being prepared.',home:'Back to the guide',newsLead:'Short notes on what has appeared in the app. Update the app and the new features will be there.',newsRead:'Read:',build2:'Build',notice:'The guide is shown in English for now; a translation into your language is coming.',sections:'SECTIONS',crumb:'Guide',soon:'Soon',stubLead:'This section is being prepared. Coming soon:',stubBack:'Back to the guide'}
+ru:{quick:'Быстрый старт',tabAll:'Все разделы',quickLead:'Три шага, чтобы начать работать: клиент, изделие, первый заказ.',installQ:'Приложение ещё не установлено?',installL:'Установка и вход',guide:'Инструкция',news:'Что нового',support:'Поддержка',all:'Разделы',searchLabel:'Поиск по инструкции',searchPh:'Например: как установить приложение',start:'Начать за 5 минут',found:'Найдено',nothing:'Ничего не найдено. Напишите нам, и мы добавим ответ.',short:'Коротко.',where:'Где нажать.',important:'Важно.',plan:'Тариф',added:'Добавлено: сборка',updated:'Обновлено: сборка',noAnswer:'Не нашли ответ? Напишите нам:',build:'Актуально для сборки',notReady:'Этот раздел ещё готовится.',home:'На главную инструкции',newsLead:'Короткие записи о том, что появилось в программе. Обновите приложение, и новое будет на месте.',newsRead:'Читать:',build2:'Сборка',notice:'',sections:'РАЗДЕЛЫ',crumb:'Инструкция',soon:'Скоро',stubLead:'Раздел готовится. Скоро здесь появится информация:',stubBack:'К оглавлению'},
+en:{quick:'Quick start',tabAll:'All topics',quickLead:'Three steps to get going: a customer, a menu item, your first order.',installQ:'App not installed yet?',installL:'Install and sign in',guide:'Guide',news:"What's new",support:'Support',all:'Sections',searchLabel:'Search the guide',searchPh:'For example: how to install the app',start:'Start in 5 minutes',found:'Found',nothing:'Nothing found. Write to us and we will add an answer.',short:'In short.',where:'Where to tap.',important:'Good to know.',plan:'Plan',added:'Added: build',updated:'Updated: build',noAnswer:"Can't find the answer? Write to us:",build:'Current for build',notReady:'This section is being prepared.',home:'Back to the guide',newsLead:'Short notes on what has appeared in the app. Update the app and the new features will be there.',newsRead:'Read:',build2:'Build',notice:'The guide is shown in English for now; a translation into your language is coming.',sections:'SECTIONS',crumb:'Guide',soon:'Soon',stubLead:'This section is being prepared. Coming soon:',stubBack:'Back to the guide'}
 };
 var BUILD='938';
 var SUPPORT='simplebake.support@gmail.com';
@@ -57,11 +57,9 @@ function bindLang(){
  document.addEventListener('keydown',function(e){if(e.key==='Escape')w.classList.remove('open')});
 }
 function header(active){
- if(EMBED){return '<nav class="embedbar" aria-label="Main"><a href="'+link(BASE)+'"'+(active==='guide'?' aria-current="page"':'')+'>'+T.guide+'</a><a href="'+link(BASE+'news/')+'"'+(active==='news'?' aria-current="page"':'')+'>'+T.news+'</a></nav>'}
- return '<header class="top"><div class="wrap"><a class="wordmark" href="/">Simple Bake</a><nav class="main" aria-label="Main">'+
- '<a href="'+link(BASE)+'"'+(active==='guide'?' aria-current="page"':'')+'>'+T.guide+'</a>'+
- '<a href="'+link(BASE+'news/')+'"'+(active==='news'?' aria-current="page"':'')+'>'+T.news+'</a>'+
- '</nav>'+langSwitch()+'</div></header>';
+ function tabs(){return '<a href="'+link(BASE)+'"'+(active==='quick'?' aria-current="page"':'')+'>'+T.quick+'</a><a href="'+link(BASE,'view=all')+'"'+(active==='all'?' aria-current="page"':'')+'>'+T.tabAll+'</a><a href="'+link(BASE+'news/')+'"'+(active==='news'?' aria-current="page"':'')+'>'+T.news+'</a>'}
+ if(EMBED){return '<nav class="embedbar" aria-label="Main">'+tabs()+'</nav>'}
+ return '<header class="top"><div class="wrap"><a class="wordmark" href="/">Simple Bake</a><nav class="main" aria-label="Main">'+tabs()+'</nav>'+langSwitch()+'</div></header>';
 }
 function footer(){
  if(EMBED)return '';
@@ -98,24 +96,31 @@ function itemHTML(it){
  return h+'</div></div></details>';
 }
 /* ---------- главная ---------- */
-function pageHome(){
+function pageHome(){if(qs('view')==='all')pageAll();else pageQuick()}
+function pageQuick(){
+ Promise.all([loadContent('quickstart'),getJSON(BASE+'content/sections.json')]).then(function(r){
+  var c=r[0],start=r[1].filter(function(x){return x.id==='start'})[0];
+  document.title=T.quick+' — Simple Bake';
+  var h='<h1>'+esc(T.quick)+'</h1><p class="lead">'+esc(T.quickLead)+'</p>';
+  if(start)h+='<p class="note" style="margin:0 0 14px">'+esc(T.installQ)+' <a href="'+secLink(start)+'">'+esc(T.installL)+' →</a></p>';
+  h+=(c.items||[]).map(itemHTML).join('').replace('<details class="item"','<details class="item" open');
+  if(EMBED)h+='<div class="help">'+T.noAnswer+' <a href="mailto:'+SUPPORT+'" target="_top">'+SUPPORT+'</a></div>';
+  shell('quick',h);
+  var m=/^#i-(.+)$/.exec(location.hash);
+  if(m){var el=document.getElementById('i-'+m[1]);if(el){el.open=true;el.scrollIntoView()}}
+ }).catch(fail);
+}
+function pageAll(){
  Promise.all([loadContent('home'),getJSON(BASE+'content/sections.json')]).then(function(r){
   var H=r[0],secs=readySections(r[1]);
-  var h='<p class="eyebrow">'+esc(H.eyebrow)+'</p><h1>'+esc(H.title)+'</h1><p class="lead">'+esc(H.lead)+'</p>';
-  h+='<div class="searchrow"><label for="q" style="position:absolute;left:-9999px">'+T.searchLabel+'</label><input id="q" type="search" placeholder="'+esc(T.searchPh)+'" autocomplete="off"><a class="btn" href="'+(EMBED?link(BASE+'section/','s=quickstart'):'#steps')+'">'+T.start+'</a></div><div id="results" class="results" aria-live="polite"></div>';
-  h+='<section class="block"><h2>'+esc(H.tasksTitle)+'</h2><div class="cards">';
-  H.tasks.forEach(function(t){h+='<div class="card"><div class="tag">'+esc(t.label)+'</div><p>'+esc(t.text)+'</p></div>'});
+  document.title=T.tabAll+' — Simple Bake';
+  var h='<h1>'+esc(T.tabAll)+'</h1><p class="lead">'+esc(H.connectText)+'</p>';
+  h+='<div class="searchrow"><label for="q" style="position:absolute;left:-9999px">'+T.searchLabel+'</label><input id="q" type="search" placeholder="'+esc(T.searchPh)+'" autocomplete="off"></div><div id="results" class="results" aria-live="polite"></div>';
+  h+='<section class="block"><div class="seclinks">';
+  allSections(r[1]).filter(function(s){return s.id!=='quickstart'}).forEach(function(s){h+='<a href="'+secLink(s)+'"'+(s.ready?'':' class="soon"')+'>'+esc(tx(s.title))+(s.ready?'':' <span class="soon-tag">'+T.soon+'</span>')+'</a>'});
   h+='</div></section>';
-  h+='<section class="block"><h2>'+esc(H.connectTitle)+'</h2><p class="lead" style="margin:0">'+esc(H.connectText)+'</p></section>';
-  h+='<section class="block" id="steps"><h2>'+esc(H.stepsTitle)+'</h2><div class="cards">';
-  H.steps.forEach(function(s,i){h+='<div class="step"><div class="n">'+(i+1)+'</div><h3>'+esc(s.title)+'</h3><p>'+esc(s.text)+'</p></div>'});
-  h+='</div><p class="note">'+esc(H.stepsNote)+(H.stepsMore?' <a href="'+link(BASE+'section/','s=quickstart')+'">'+esc(H.stepsMore)+' →</a>':'')+'</p></section>';
   h+='<section class="block"><h2>'+esc(H.plansTitle)+'</h2><p class="lead" style="margin:0">'+esc(H.plansText)+'</p></section>';
-  h+='<section class="block"><h2>'+esc(H.sectionsTitle)+'</h2><div class="seclinks">';
-  allSections(r[1]).forEach(function(s){h+='<a href="'+secLink(s)+'"'+(s.ready?'':' class="soon"')+'>'+esc(tx(s.title))+(s.ready?'':' <span class="soon-tag">'+T.soon+'</span>')+'</a>'});
-  h+='</div></section>';
-  h+='<div class="newsbar"><div><strong>'+esc(H.newsTitle)+'</strong><div class="meta">'+esc(H.newsText)+'</div></div><a class="btn ghost" href="'+link(BASE+'news/')+'">'+esc(H.newsBtn)+'</a></div>';
-  shell('guide',h);
+  shell('all',h);
   setupSearch(secs);
  }).catch(fail);
 }
@@ -140,16 +145,16 @@ function setupSearch(secs){
 }
 /* ---------- раздел ---------- */
 function pageSection(){
- var id=qs('s');
+ var id=qs('s'),secTab=(id==='quickstart'?'quick':'all');
  getJSON(BASE+'content/sections.json').then(function(list){
-  var all=allSections(list),cur=all.filter(function(s){return s.id===id})[0];
+  var full=allSections(list),all=full.filter(function(s){return s.id!=='quickstart'}),cur=full.filter(function(s){return s.id===id})[0];
   var side='<aside class="side"><div class="lbl">'+T.sections+'</div><nav aria-label="'+T.sections+'">'+all.map(function(s){return '<a href="'+secLink(s)+'"'+(cur&&s.id===cur.id?' aria-current="page"':'')+(s.ready?'':' class="soon"')+'>'+esc(tx(s.title))+'</a>'}).join('')+'</nav></aside>';
   var help='<div class="help">'+T.noAnswer+' <a href="mailto:'+SUPPORT+'"'+(EMBED?' target="_top"':'')+'>'+SUPPORT+'</a></div>';
-  if(!cur){shell('guide','<div class="layout">'+side+'<div class="content"><h1>'+T.notReady+'</h1><p><a href="'+link(BASE)+'">'+T.home+'</a></p></div></div>');return}
+  if(!cur){shell(secTab,'<div class="layout">'+side+'<div class="content"><h1>'+T.notReady+'</h1><p><a href="'+link(BASE)+'">'+T.home+'</a></p></div></div>');return}
   document.title=tx(cur.title)+' — Simple Bake';
   var head='<p class="crumbs">'+T.crumb+' / '+esc(tx(cur.title))+'</p><h1>'+esc(tx(cur.title))+'</h1>';
   if(!cur.ready){
-   shell('guide','<div class="layout">'+side+'<div class="content">'+head+'<div class="stub"><p><strong>'+T.stubLead+'</strong></p>'+(cur.desc?'<p>'+esc(tx(cur.desc))+'</p>':'')+'<p><a href="'+link(BASE)+'">'+T.stubBack+'</a></p></div>'+(EMBED?help:'')+'</div></div>');
+   shell(secTab,'<div class="layout">'+side+'<div class="content">'+head+'<div class="stub"><p><strong>'+T.stubLead+'</strong></p>'+(cur.desc?'<p>'+esc(tx(cur.desc))+'</p>':'')+'<p><a href="'+link(BASE)+'">'+T.stubBack+'</a></p></div>'+(EMBED?help:'')+'</div></div>');
    return;
   }
   return loadSection(cur.id).then(function(c){
@@ -158,7 +163,7 @@ function pageSection(){
    h+=(c.items||[]).map(itemHTML).join('');
    if(EMBED)h+=help;
    h+='</div></div>';
-   shell('guide',h);
+   shell(secTab,h);
    var m=/^#i-(.+)$/.exec(location.hash);
    if(m){var el=document.getElementById('i-'+m[1]);if(el){el.open=true;el.scrollIntoView()}}
   });
