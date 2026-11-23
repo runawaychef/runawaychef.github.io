@@ -91,7 +91,7 @@
   .lang-toggle button.active{ background:var(--sage); color:#fff; }
 
   /* ---------- hero ---------- */
-  .hero{ padding:56px 0 28px; position:relative; overflow:hidden; }
+  .hero{ padding:48px 0 16px; position:relative; overflow:hidden; }
   .hero-grid{ max-width:640px; }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
@@ -105,7 +105,7 @@
     margin:0 0 22px; letter-spacing:-.015em;
   }
   .hero h1 em{ font-style:italic; font-weight:500; color:var(--terracotta); }
-  .lead-group{ margin:0 0 34px; max-width:46ch; }
+  .lead-group{ margin:0 0 20px; max-width:46ch; }
   .hero p.lead{ font-size:18px; line-height:1.6; color:#5b5b4f; margin:0 0 16px; }
   .hero p.lead:last-child{ margin-bottom:0; }
   .cta-row{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; }
@@ -144,10 +144,11 @@
   .ticket .tk-total{ margin-top:10px; padding-top:10px; border-top:1px dashed rgba(79,99,73,.2); display:flex; justify-content:space-between; font:700 14px 'Karla',sans-serif; color:var(--sage-dark); }
 
   /* ---------- features ---------- */
-  .section{ padding:0 0 28px; }
-  .section-head{ max-width:640px; margin:0 0 44px; }
+  .section{ padding:0 0 32px; }
+  .section-head{ max-width:640px; margin:0 0 24px; }
+  .section-head:last-child{ margin-bottom:0; }
   .kicker{ font:600 12px/1 'Karla',sans-serif; letter-spacing:.09em; text-transform:uppercase; color:var(--terracotta); margin-bottom:12px; display:block;}
-  .section-head h2{ font-size:clamp(26px,3.4vw,36px); color:var(--sage-dark); margin:0 0 14px; font-weight:600; letter-spacing:-.01em; }
+  .section-head h2{ font-size:clamp(26px,3.4vw,36px); color:var(--sage-dark); margin:0 0 10px; font-weight:600; letter-spacing:-.01em; }
   .section-head p{ font-size:16.5px; line-height:1.65; color:#5b5b4f; margin:0; }
 
   .feature-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:rgba(79,99,73,.14); border-radius:20px; overflow:hidden; }
@@ -183,25 +184,25 @@
   }
 
   /* ---------- how it works ---------- */
-  .how{ background:var(--sage-dark); color:var(--cream); border-radius:28px; padding:56px 44px; }
+  .how{ background:var(--sage-dark); color:var(--cream); border-radius:28px; padding:36px 24px; }
   .how .section-head h2{ color:#fff; }
   .how .section-head p{ color:rgba(244,241,234,.78); }
   .how .kicker{ color:var(--honey); }
-  .how-steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:36px; margin-top:8px; }
+  .how-steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:8px; }
   .how-step .num{ font-family:'Fraunces',serif; font-style:italic; font-size:15px; color:var(--honey); margin-bottom:10px; }
   .how-step h3{ font:600 17px 'Karla',sans-serif; margin:0 0 8px; color:#fff; }
   .how-step p{ font-size:14px; line-height:1.6; color:rgba(244,241,234,.75); margin:0; }
 
   /* ---------- CTA band ---------- */
   .cta-band{
-    background:var(--honey); border-radius:26px; padding:52px 44px; text-align:center;
+    background:var(--honey); border-radius:26px; padding:36px 24px; text-align:center;
     position:relative; overflow:hidden;
   }
   .cta-band h2{ font-size:clamp(26px,3.6vw,38px); color:#3c2f14; margin:0 0 14px; font-weight:600; }
   .cta-band p{ font-size:16px; color:#5a4a24; max-width:52ch; margin:0 auto 30px; line-height:1.6; }
   .cta-band .btn-primary{ background:var(--sage-dark); }
 
-  footer{ padding:48px 0 40px; border-top:1px solid rgba(79,99,73,.14); margin-top:20px; }
+  footer{ padding:36px 0 32px; border-top:1px solid rgba(79,99,73,.14); margin-top:8px; }
   .footer-inner{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px; align-items:flex-start; }
   .footer-brand .wordmark{ font-size:18px; }
   .footer-brand p{ font-size:13px; color:#8a8676; margin:8px 0 0; max-width:32ch; line-height:1.5; }
@@ -217,9 +218,7 @@
     .showcase-phone{ margin-top:8px; }
     .phone-frame{ max-width:220px; }
     .feature-grid{ grid-template-columns:1fr; }
-    .how{ padding:40px 24px; }
-    .how-steps{ grid-template-columns:1fr; gap:26px; }
-    .cta-band{ padding:40px 24px; }
+    .how-steps{ grid-template-columns:1fr; gap:22px; }
   }
   @media (max-width:480px){
     .header-inner{ padding:14px 16px; }
@@ -479,6 +478,11 @@
         <a href="/privacy.html"><span data-lang="ru">Конфиденциальность</span><span data-lang="en">Privacy Policy</span></a>
         <a href="/terms.html"><span data-lang="ru">Условия использования</span><span data-lang="en">Terms of Use</span></a>
         <a href="/delete-account.html"><span data-lang="ru">Удаление аккаунта</span><span data-lang="en">Delete account</span></a>
+      </div>
+      <div>
+        <span class="lbl" data-lang="ru">Помощь</span>
+        <span class="lbl" data-lang="en">Help</span>
+        <a href="/faq/"><span data-lang="ru">Инструкция (FAQ)</span><span data-lang="en">Guide (FAQ)</span></a>
       </div>
     </div>
   </div>
