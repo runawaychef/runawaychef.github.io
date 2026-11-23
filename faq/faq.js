@@ -102,7 +102,7 @@ function pageHome(){
  Promise.all([loadContent('home'),getJSON(BASE+'content/sections.json')]).then(function(r){
   var H=r[0],secs=readySections(r[1]);
   var h='<p class="eyebrow">'+esc(H.eyebrow)+'</p><h1>'+esc(H.title)+'</h1><p class="lead">'+esc(H.lead)+'</p>';
-  h+='<div class="searchrow"><label for="q" style="position:absolute;left:-9999px">'+T.searchLabel+'</label><input id="q" type="search" placeholder="'+esc(T.searchPh)+'" autocomplete="off"><a class="btn" href="#steps">'+T.start+'</a></div><div id="results" class="results" aria-live="polite"></div>';
+  h+='<div class="searchrow"><label for="q" style="position:absolute;left:-9999px">'+T.searchLabel+'</label><input id="q" type="search" placeholder="'+esc(T.searchPh)+'" autocomplete="off"><a class="btn" href="'+(EMBED?link(BASE+'section/','s=quickstart'):'#steps')+'">'+T.start+'</a></div><div id="results" class="results" aria-live="polite"></div>';
   h+='<section class="block"><h2>'+esc(H.tasksTitle)+'</h2><div class="cards">';
   H.tasks.forEach(function(t){h+='<div class="card"><div class="tag">'+esc(t.label)+'</div><p>'+esc(t.text)+'</p></div>'});
   h+='</div></section>';
