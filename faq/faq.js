@@ -84,13 +84,13 @@ function itemHTML(it){
  function lab(l,t){return '<p><strong>'+l+'</strong>'+(t.indexOf('\n')>-1?'<br>':' ')+multi(t)+'</p>'}
  h+=lab(T.short,it.short);
  if(it.where)h+=lab(T.where,it.where);
- if(it.important)h+=lab(T.important,it.important);
  if(it.shots&&it.shots.length){
   h+='<div class="shots">'+it.shots.map(function(s){
    var src=BASE+'img/'+s.id+'.'+CL+'.webp',alt=esc(tx(s.alt)||tx(s.caption));
    return '<figure class="shot"><button type="button" class="shot-btn" data-full="'+esc(src)+'" data-alt="'+alt+'" aria-label="'+alt+'"><img src="'+esc(src)+'" alt="'+alt+'" loading="lazy" width="260"></button>'+(s.caption?'<figcaption>'+esc(tx(s.caption))+'</figcaption>':'')+'</figure>';
   }).join('')+'</div>';
  }
+ if(it.important)h+=lab(T.important,it.important);
  h+='<div class="chips">';
  if(it.plan)h+='<span class="chip">'+T.plan+': '+esc(it.plan)+'</span>';
  var meta=[];if(it.added)meta.push(T.added+' '+esc(it.added));if(it.updated)meta.push(T.updated+' '+esc(it.updated));
